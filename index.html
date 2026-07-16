@@ -29,6 +29,101 @@
   .whoami select option{color:#333}
   .btn-ghost{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:8px;padding:7px 12px;font-size:13px}
   .btn-ghost:hover{background:rgba(255,255,255,.24)}
+  /* ===== COMERCIAL (CRM) ===== */
+  .cv-board{display:flex;gap:14px;align-items:flex-start;overflow-x:auto;padding-bottom:10px}
+  .cv-col{background:#efe8df;border-radius:14px;padding:10px;min-width:250px;width:250px;flex-shrink:0}
+  .cv-col.drop{outline:2px dashed var(--terra);outline-offset:-4px;background:#e9dfd2}
+  .cv-head{padding:6px 8px 10px}
+  .cv-head .top{display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:13px}
+  .cv-head .bar{width:9px;height:9px;border-radius:50%;margin-right:7px;display:inline-block}
+  .cv-head .count{background:#fff;color:var(--muted);border-radius:20px;padding:1px 9px;font-size:12px}
+  .cv-head .sum{font-size:11px;color:var(--muted);font-weight:700;margin-top:4px}
+  .cv-card{background:#fff;border-radius:11px;padding:12px;margin-bottom:10px;box-shadow:var(--shadow);cursor:grab;border-left:4px solid var(--line)}
+  .cv-card:active{cursor:grabbing}
+  .cv-card.dragging{opacity:.45}
+  .cv-card h4{font-size:14px;margin-bottom:3px;line-height:1.3}
+  .cv-card .cidade{font-size:11px;color:var(--terra);font-weight:700;margin-bottom:3px}
+  .cv-card .contato{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .cv-card .valor{font-size:15px;font-weight:800;color:var(--brown-dark);margin-bottom:8px}
+  .cv-card .meta{display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .cv-card .links{display:flex;gap:6px}
+  .cv-card .links a{text-decoration:none;font-size:14px;line-height:1;opacity:.85}
+  .cv-card .links a:hover{opacity:1}
+  .cv-origem{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.3px;background:#e7f0f8;color:#4f7cad;border-radius:20px;padding:2px 8px}
+  .cv-next{font-size:11px;color:var(--muted);margin-top:8px}
+  .cv-next.late{color:#c0503f;font-weight:800}
+  .cv-next.soon{color:#b9832a;font-weight:700}
+  .meta-bar{height:7px;background:rgba(255,255,255,.28);border-radius:20px;overflow:hidden;margin-top:10px}
+  .meta-bar span{display:block;height:100%;background:var(--sage);border-radius:20px;transition:width .4s}
+  .link-prev{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .link-prev a{font-size:12px;font-weight:700;color:var(--terra);text-decoration:none;background:#f6efe8;border:1px solid var(--line);border-radius:20px;padding:5px 12px}
+  .stage-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+  .stage-row input[type=text]{flex:1}
+  .stage-row input[type=color]{width:42px;height:38px;padding:2px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer}
+  .stage-row button{background:#efe8df;color:var(--brown-dark);border-radius:7px;width:32px;height:32px;font-weight:800;flex-shrink:0}
+  .stage-row .del:hover{background:#f6e9e6;color:#c0503f}
+  .btn.cv{background:#5b7fa6}.btn.cv:hover{background:#4d6f96}
+  .btn.ghost{background:#efe8df;color:var(--brown-dark)}.btn.ghost:hover{background:#e5dbcd}
+  .lock-hero{text-align:center;padding:34px 24px}
+  .lock-hero .ico{font-size:44px}
+  .lock-hero h3{font-size:20px;color:var(--brown-dark);margin:12px 0 6px}
+  .lock-hero p{font-size:13px;color:var(--muted);line-height:1.5}
+  /* Relatório */
+  .rep h3{font-size:20px;color:var(--brown-dark);margin-bottom:2px}
+  .rep .repdate{font-size:12px;color:var(--muted);margin-bottom:16px}
+  .rep .sec{font-size:12px;font-weight:800;color:var(--brown-dark);text-transform:uppercase;letter-spacing:.6px;margin:22px 0 9px;border-bottom:2px solid var(--sage);padding-bottom:5px}
+  .rep .sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .rep .sum-item{background:var(--cream);border-radius:9px;padding:10px 12px}
+  .rep .sum-item b{display:block;font-size:17px;color:var(--brown-dark);line-height:1.2}
+  .rep .sum-item span{font-size:10px;color:var(--muted);text-transform:uppercase}
+  .rep table{width:100%;border-collapse:collapse;font-size:13px}
+  .rep th{background:var(--terra);color:#fff;text-align:left;padding:8px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.4px}
+  .rep td{padding:8px 10px;border-top:1px solid var(--line)}
+  .rep tr:nth-child(even) td{background:#faf6f0}
+  .rep .num{text-align:right}
+  .rep ul{margin:0 0 4px 18px;font-size:13px}
+  .rep li{margin-bottom:6px;line-height:1.4}
+  .rep .alert{color:#c0503f;font-weight:700}
+  .rep .ok{color:#4e8a3f;font-weight:700}
+  .rep .modal{max-width:820px}
+  @media print{
+    body *{visibility:hidden}
+    #repOverlay,#repOverlay *{visibility:visible}
+    #repOverlay{position:absolute;inset:0;background:#fff;display:block!important;padding:0;overflow:visible}
+    #repOverlay .modal{max-width:100%;max-height:none;box-shadow:none;border-radius:0;overflow:visible}
+    #repOverlay .modal-head,#repOverlay .modal-foot{display:none!important}
+  }
+
+  /* Briefing do dia */
+  .br-hero{background:linear-gradient(120deg,var(--brown-dark),var(--terra));color:#fff;padding:22px 24px;border-radius:16px 16px 0 0}
+  .br-hero h3{font-size:22px;font-weight:800;margin-bottom:3px}
+  .br-hero .dt{font-size:13px;opacity:.9;text-transform:capitalize}
+  .br-moti{background:rgba(255,255,255,.16);border-radius:11px;padding:12px 15px;margin-top:14px;font-size:13.5px;font-weight:600;line-height:1.45;font-style:italic}
+  .br-moti .ref{display:block;margin-top:6px;font-size:11px;font-weight:800;font-style:normal;opacity:.85;letter-spacing:.5px}
+  .br-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  .br-chip{background:rgba(255,255,255,.18);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:700}
+  .br-chip.red{background:rgba(192,80,63,.85)}
+  .br-chip.green{background:rgba(123,176,106,.9)}
+  .br-sec{font-size:12px;font-weight:800;color:var(--brown-dark);text-transform:uppercase;letter-spacing:.5px;margin:18px 0 8px}
+  .br-item{display:flex;align-items:center;gap:11px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--terra);border-radius:10px;padding:10px 13px;margin-bottom:7px;cursor:pointer}
+  .br-item:hover{background:var(--cream)}
+  .br-item.late{border-left-color:#c0503f}
+  .br-item.today{border-left-color:#e0a94b}
+  .br-item.appr{border-left-color:#7aa2c9}
+  .br-item.ev{border-left-color:#8a7bb0;cursor:default}
+  .br-item.tm{border-left-color:#5b7fa6;cursor:default}
+  .br-item .grow{flex:1}
+  .br-item h5{font-size:14px;color:var(--ink);margin-bottom:2px}
+  .br-item .sub{font-size:12px;color:var(--muted)}
+  .br-item .tag{font-size:11px;font-weight:800;white-space:nowrap;color:var(--muted)}
+  .br-item .tag.late{color:#c0503f}
+  .br-item .tag.today{color:#b9832a}
+  .br-empty{background:#e7f3e2;color:#4e8a3f;border-radius:10px;padding:18px;font-weight:700;text-align:center;line-height:1.5}
+  .br-foot{padding:16px 22px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:space-between;align-items:center}
+  .br-foot .note{font-size:12px;color:var(--muted)}
+  .btn.ack{background:var(--sage);color:var(--brown-dark)}
+  .btn.ack:hover{background:#a6bf7c}
+
   .syncdot{font-size:12px;font-weight:700;padding:6px 12px;border-radius:20px;background:rgba(255,255,255,.14);color:#fff;white-space:nowrap}
   .syncdot.on{background:rgba(123,176,106,.35)}
   .syncdot.off{background:rgba(255,255,255,.14)}
@@ -322,8 +417,20 @@
     <span>Você:</span>
     <select id="me" onchange="setMe(this.value)"></select>
   </div>
+  <button class="btn-ghost" onclick="openBrief()" title="Prioridades do dia">🔔 Prioridades</button>
   <span id="syncDot" class="syncdot off">⚪ Local</span>
 </header>
+
+<!-- POP-UP PRIORIDADES DO DIA -->
+<div class="overlay" id="brOverlay">
+  <div class="modal" style="max-width:560px">
+    <div id="brBody"></div>
+    <div class="br-foot">
+      <span class="note">Aparece 1x por dia ao entrar</span>
+      <button class="btn ack" onclick="ackBrief()">✓ Ok, li — bora trabalhar</button>
+    </div>
+  </div>
+</div>
 
 <div class="layout">
 <nav id="nav" class="collapsed">
@@ -333,6 +440,7 @@
   <button data-view="checklist" onclick="go('checklist')" title="Checklist"><span class="ic">✅</span><span class="lbl">Checklist</span></button>
   <button data-view="clientes" onclick="go('clientes')" title="Clientes"><span class="ic">🏢</span><span class="lbl">Clientes</span></button>
   <button data-view="automacoes" onclick="go('automacoes')" title="Automações"><span class="ic">🔁</span><span class="lbl">Automações</span></button>
+  <button data-view="comercial" id="navComercial" onclick="go('comercial')" title="Comercial" style="display:none"><span class="ic">💼</span><span class="lbl">Comercial</span></button>
 </nav>
 
 <main>
@@ -395,6 +503,24 @@
     </div>
     <div id="cliList"></div>
     <div id="cliDetail" style="display:none"></div>
+  </section>
+
+  <!-- COMERCIAL (CRM) -->
+  <section class="view" id="view-comercial">
+    <div class="view-head">
+      <div><h2>Comercial</h2><p>Funil de vendas — arraste os cards entre as etapas</p></div>
+      <button class="btn ghost push" onclick="openBrief()">🔔 Prioridades do dia</button>
+      <button class="btn ghost" onclick="openReport()">📊 Relatório do funil</button>
+      <button class="btn ghost" onclick="openStages()">⚙ Etapas</button>
+      <button class="btn cv" onclick="openOp()">＋ Nova oportunidade</button>
+    </div>
+    <div class="kpis" id="cvKpis"></div>
+    <div class="filters">
+      <input type="search" id="fBusca" placeholder="🔎 Buscar escola, cidade ou contato..." oninput="renderCV()" style="min-width:220px;border:1px solid var(--line);border-radius:8px;padding:8px 11px">
+      <select id="fCvResp" onchange="renderCV()"></select>
+      <select id="fOrigem" onchange="renderCV()"></select>
+    </div>
+    <div class="cv-board" id="cvBoard"></div>
   </section>
 
   <!-- AUTOMAÇÕES -->
@@ -535,6 +661,106 @@
     </div>
   </div>
 </div>
+<!-- MODAL SENHA COMERCIAL -->
+<div class="overlay" id="pwOverlay">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head"><h3 id="pwTitle">Área comercial</h3><button class="btn-x" onclick="closePw()">×</button></div>
+    <div class="modal-body">
+      <div class="lock-hero" style="padding:10px 0 4px"><div class="ico">🔒</div></div>
+      <p id="pwMsg" style="font-size:13px;color:var(--muted);text-align:center;line-height:1.5;margin-bottom:6px"></p>
+      <label>Senha</label>
+      <input type="password" id="pwInput" placeholder="••••••" onkeydown="if(event.key==='Enter')submitPw()">
+      <div id="pwConfirmWrap" style="display:none">
+        <label>Confirmar senha</label>
+        <input type="password" id="pwConfirm" placeholder="••••••" onkeydown="if(event.key==='Enter')submitPw()">
+      </div>
+      <p id="pwErr" style="color:#c0503f;font-size:13px;font-weight:700;margin-top:10px;display:none"></p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-cancel" onclick="closePw()">Cancelar</button>
+      <button class="btn cv" id="pwBtn" onclick="submitPw()">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL OPORTUNIDADE -->
+<div class="overlay" id="opOverlay">
+  <div class="modal">
+    <div class="modal-head"><h3 id="opTitle">Nova oportunidade</h3><button class="btn-x" onclick="closeOp()">×</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="opId">
+      <div class="row2">
+        <div><label>Escola / Empresa</label><input id="opEmpresa" placeholder="Ex: Colégio Santa Clara"></div>
+        <div><label>Cidade</label><input id="opCidade" placeholder="Ex: Goiânia - GO"></div>
+      </div>
+      <div class="row2">
+        <div><label>Pessoa de contato</label><input id="opContato" placeholder="Ex: Maria Souza"></div>
+        <div><label>Cargo</label><input id="opCargo" placeholder="Ex: Diretora"></div>
+      </div>
+      <div class="row2">
+        <div><label>WhatsApp / Telefone</label><input id="opFone" placeholder="(00) 00000-0000"></div>
+        <div><label>E-mail</label><input id="opEmail" type="email" placeholder="contato@escola.com.br"></div>
+      </div>
+      <div class="row2">
+        <div><label>Instagram do colégio</label><input id="opInsta" placeholder="@colegio ou link" oninput="updateLinkPreviews()"></div>
+        <div><label>Site</label><input id="opSite" type="url" placeholder="https://..." oninput="updateLinkPreviews()"></div>
+      </div>
+      <div id="linkPrev" class="link-prev"></div>
+      <div class="row2">
+        <div><label>Etapa</label><select id="opEtapa"></select></div>
+        <div><label>Origem do lead</label><select id="opOrigem"></select></div>
+      </div>
+      <div class="row2">
+        <div><label>Valor estimado (R$)</label><input type="number" id="opValor" min="0" step="100" placeholder="0"></div>
+        <div><label>Responsável</label><select id="opResp"></select></div>
+      </div>
+      <div class="row2">
+        <div><label>Data da proposta</label><input type="date" id="opDataProp"></div>
+        <div><label>Link da proposta</label><input id="opLink" type="url" placeholder="https://..."></div>
+      </div>
+      <div class="row2">
+        <div><label>Próxima ação</label><input id="opAcao" placeholder="Ex: Ligar para follow-up"></div>
+        <div><label>Data da próxima ação</label><input type="date" id="opAcaoData"></div>
+      </div>
+      <label>Observações</label>
+      <textarea id="opObs" placeholder="Anotações da negociação..."></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-del" id="opDelBtn" onclick="deleteOp()">Excluir</button>
+      <button class="btn-cancel" onclick="closeOp()">Cancelar</button>
+      <button class="btn cv" onclick="saveOp()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ETAPAS DO FUNIL -->
+<div class="overlay" id="stOverlay">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-head"><h3>Etapas do funil</h3><button class="btn-x" onclick="closeStages()">×</button></div>
+    <div class="modal-body">
+      <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Renomeie, troque a cor, reordene (↑ ↓) ou remova etapas. Uma etapa só pode ser removida se estiver vazia.</p>
+      <div id="stList"></div>
+      <button class="btn ghost" style="margin-top:10px" onclick="addStage()">＋ Adicionar etapa</button>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-cancel" onclick="closeStages()">Cancelar</button>
+      <button class="btn cv" onclick="saveStagesCV()">Salvar etapas</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL RELATÓRIO -->
+<div class="overlay rep" id="repOverlay">
+  <div class="modal">
+    <div class="modal-head"><h3>Relatório do funil</h3><button class="btn-x" onclick="closeReport()">×</button></div>
+    <div class="modal-body" id="repBody"></div>
+    <div class="modal-foot">
+      <button class="btn-cancel" onclick="closeReport()">Fechar</button>
+      <button class="btn cv" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <!-- Firebase (sincronização em tempo real) -->
@@ -590,7 +816,29 @@ let AUTOMATIONS = (()=>{ try{const r=localStorage.getItem(AUTO_KEY); if(r)return
 function saveAutos(){ syncUp(); }
 const WEEKDAYS=["domingo","segunda-feira","terça-feira","quarta-feira","quinta-feira","sexta-feira","sábado"];
 const MONTHS=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
-let _autoRan=false;
+let _autoRan=false, _briefRan=false;
+
+/* ===== COMERCIAL (CRM) ===== */
+const CRM_TEAM = ["Isabela","Ana"];            // quem enxerga a aba Comercial
+const META_ESCOLAS = 1000;                      // meta de escolas contatadas
+const ID_NEGOCIACAO = "negociacao";             // etapa que conta como "em negociação"
+const ORIGENS = ["Instagram","Indicação","Site","Evento","Prospecção ativa","WhatsApp"];
+const DEFAULT_STAGES = [
+  {id:"lead",nome:"Lead",cor:"#9aa7b5"},
+  {id:"contato",nome:"Contato feito",cor:"#7aa2c9"},
+  {id:"reuniao",nome:"Reunião agendada",cor:"#8a7bb0"},
+  {id:"proposta",nome:"Proposta enviada",cor:"#e0a94b"},
+  {id:"negociacao",nome:"Negociação",cor:"#c98b4b"},
+  {id:"ganho",nome:"Fechado (ganho)",cor:"#7bb06a"},
+  {id:"perdido",nome:"Perdido",cor:"#c0503f"}
+];
+const CRM_OPS_KEY="benne_crm_ops_v1", CRM_ST_KEY="benne_crm_stages_v1", CRM_PW_KEY="benne_crm_pw_v1";
+let CRM_OPS = (()=>{ try{const r=localStorage.getItem(CRM_OPS_KEY); if(r)return JSON.parse(r);}catch(e){} return []; })();
+let CRM_STAGES = (()=>{ try{const r=localStorage.getItem(CRM_ST_KEY); if(r)return JSON.parse(r);}catch(e){} return JSON.parse(JSON.stringify(DEFAULT_STAGES)); })();
+let CRM_PASS = (()=>{ try{return localStorage.getItem(CRM_PW_KEY)||null;}catch(e){ return null; } })();
+let crmUnlocked = sessionStorage.getItem("benne_crm_unlocked")==="1";
+let stageDraft = [];
+function saveCRM(){ syncUp(); }
 const TEAM = ["Isabela","Ana","Leticia"];
 const ROLES = {Isabela:"Operacional",Ana:"Filmaker / Planner / Atendimento",Leticia:"Design / Extras / Social Media"};
 const CATEGORIES = ["Planejamento","Design","Captação de vídeos","Edição de vídeos","Revisão","Entrega","Social Media","Extras"];
@@ -668,11 +916,14 @@ function syncUp(){
     localStorage.setItem(EVENTS_KEY, JSON.stringify(EVENTS));
     localStorage.setItem(TEAMEV_KEY, JSON.stringify(TEAMEV));
     localStorage.setItem(AUTO_KEY, JSON.stringify(AUTOMATIONS));
+    localStorage.setItem(CRM_OPS_KEY, JSON.stringify(CRM_OPS));
+    localStorage.setItem(CRM_ST_KEY, JSON.stringify(CRM_STAGES));
+    if(CRM_PASS) localStorage.setItem(CRM_PW_KEY, CRM_PASS);
   }catch(e){}
   if(!FB_ENABLED||!fbRef) return;
   clearTimeout(_syncTimer);
   _syncTimer=setTimeout(()=>{
-    const state=JSON.parse(JSON.stringify({demands:DB,clients:CLIENTS,check:CHECK,deadlines:DEADLINES,na:NA,events:EVENTS,teamev:TEAMEV,automations:AUTOMATIONS}));
+    const state=JSON.parse(JSON.stringify({demands:DB,clients:CLIENTS,check:CHECK,deadlines:DEADLINES,na:NA,events:EVENTS,teamev:TEAMEV,automations:AUTOMATIONS,crmOps:CRM_OPS,crmStages:CRM_STAGES,crmPass:CRM_PASS||null}));
     fbRef.set(state).catch(e=>console.warn("Sync falhou:",e));
   },150);
 }
@@ -690,6 +941,9 @@ function applyRemote(val){
   EVENTS = Array.isArray(val.events)?val.events:(val.events?Object.values(val.events):[]);
   TEAMEV = Array.isArray(val.teamev)?val.teamev:(val.teamev?Object.values(val.teamev):[]);
   AUTOMATIONS = Array.isArray(val.automations)?val.automations:(val.automations?Object.values(val.automations):[]);
+  CRM_OPS = Array.isArray(val.crmOps)?val.crmOps:(val.crmOps?Object.values(val.crmOps):[]);
+  if(val.crmStages){ CRM_STAGES = Array.isArray(val.crmStages)?val.crmStages:Object.values(val.crmStages); }
+  CRM_PASS = val.crmPass || null;
   const _seen={}; DB = DB.filter(d=>{ if(!d||!d.id) return true; if(_seen[d.id]) return false; _seen[d.id]=true; return true; });
   try{
     localStorage.setItem(STORE_KEY, JSON.stringify(DB));
@@ -704,6 +958,7 @@ function applyRemote(val){
   if(JSON.stringify(CLIENTS)!==prevClients) fillSelects();
   refreshCurrent();
   if(!_autoRan){ _autoRan=true; setTimeout(processAutomations, 400); }
+  if(!_briefRan){ _briefRan=true; setTimeout(maybeShowBrief, 900); }
 }
 function setOnline(on){
   const el=$("#syncDot"); if(!el)return;
@@ -724,21 +979,416 @@ function dueClass(d,status){ if(!d||status==='done')return""; const diff=(new Da
 function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1800); }
 function opt(v,l,sel){ return `<option value="${v}" ${v===sel?'selected':''}>${l}</option>`; }
 
+/* ================= COMERCIAL (CRM) ================= */
+const money=v=>(Number(v)||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});
+const isOpenCV=id=>!["ganho","perdido"].includes(id);
+const stageById=id=>CRM_STAGES.find(s=>s.id===id)||CRM_STAGES[0];
+const pctCV=(a,b)=>b>0?(a/b*100):0;
+const fmtPct=v=>v.toFixed(1).replace('.',',')+"%";
+function instaUrl(v){ v=(v||"").trim(); if(!v)return""; if(/^https?:\/\//i.test(v))return v; return "https://instagram.com/"+v.replace(/^@/,""); }
+function instaLabel(v){ v=(v||"").trim(); if(!v)return""; if(/^https?:\/\//i.test(v)){const m=v.replace(/\/+$/,"").split("/").pop(); return "@"+m;} return v.startsWith("@")?v:"@"+v; }
+function siteUrl(v){ v=(v||"").trim(); if(!v)return""; return /^https?:\/\//i.test(v)?v:"https://"+v; }
+function updateLinkPreviews(){
+  const ig=$("#opInsta").value.trim(), st=$("#opSite").value.trim(); let h="";
+  if(ig) h+=`<a href="${esc(instaUrl(ig))}" target="_blank" rel="noopener">📷 ${esc(instaLabel(ig))} ↗</a>`;
+  if(st) h+=`<a href="${esc(siteUrl(st))}" target="_blank" rel="noopener">🌐 Abrir site ↗</a>`;
+  $("#linkPrev").innerHTML=h;
+}
+
+/* ----- Senha ----- */
+async function hashPass(s){
+  try{
+    if(window.crypto && crypto.subtle){
+      const b=new TextEncoder().encode("benne|"+s);
+      const h=await crypto.subtle.digest('SHA-256',b);
+      return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('');
+    }
+  }catch(e){}
+  let h=5381; for(const c of ("benne|"+s)) h=((h*33)^c.charCodeAt(0))>>>0; return "f"+h.toString(16);
+}
+function openPw(){
+  const novo = !CRM_PASS;
+  $("#pwTitle").textContent = novo ? "Criar senha do Comercial" : "Área comercial";
+  $("#pwMsg").textContent = novo
+    ? "Esta é a primeira vez. Crie uma senha para a área comercial — ela será compartilhada entre Bela e Papal."
+    : "Área restrita ao comercial. Digite a senha para continuar.";
+  $("#pwConfirmWrap").style.display = novo ? "block" : "none";
+  $("#pwBtn").textContent = novo ? "Criar senha" : "Entrar";
+  $("#pwInput").value=""; $("#pwConfirm").value=""; $("#pwErr").style.display="none";
+  $("#pwOverlay").classList.add("open");
+  setTimeout(()=>$("#pwInput").focus(),100);
+}
+function closePw(){ $("#pwOverlay").classList.remove("open"); }
+function pwError(m){ const e=$("#pwErr"); e.textContent=m; e.style.display="block"; }
+async function submitPw(){
+  const v=$("#pwInput").value;
+  if(!v){ pwError("Digite a senha."); return; }
+  if(!CRM_PASS){
+    if(v.length<4){ pwError("Use pelo menos 4 caracteres."); return; }
+    if(v!==$("#pwConfirm").value){ pwError("As senhas não conferem."); return; }
+    CRM_PASS = await hashPass(v);
+    saveCRM(); unlockCV(); toast("Senha criada ✔");
+  } else {
+    const h=await hashPass(v);
+    if(h!==CRM_PASS){ pwError("Senha incorreta."); return; }
+    unlockCV();
+  }
+}
+function unlockCV(){
+  crmUnlocked=true; sessionStorage.setItem("benne_crm_unlocked","1");
+  closePw(); showView("comercial"); renderCV();
+}
+
+/* ----- Funil ----- */
+function cvFiltered(){
+  const q=($("#fBusca").value||"").toLowerCase().trim();
+  const r=$("#fCvResp").value, o=$("#fOrigem").value;
+  return CRM_OPS.filter(x=>{
+    if(r && x.resp!==r) return false;
+    if(o && x.origem!==o) return false;
+    if(q && !((x.empresa||"").toLowerCase().includes(q)||(x.contato||"").toLowerCase().includes(q)||(x.cidade||"").toLowerCase().includes(q))) return false;
+    return true;
+  });
+}
+function renderCV(){
+  renderCvKpis();
+  const list=cvFiltered();
+  $("#cvBoard").innerHTML = CRM_STAGES.map(s=>{
+    const items=list.filter(o=>o.etapa===s.id);
+    const sum=items.reduce((n,o)=>n+(Number(o.valor)||0),0);
+    return `<div class="cv-col" data-stage="${s.id}" ondragover="cvAllow(event)" ondragleave="cvLeave(event)" ondrop="cvDrop(event,'${s.id}')">
+      <div class="cv-head">
+        <div class="top"><span><span class="bar" style="background:${s.cor}"></span>${esc(s.nome)}</span><span class="count">${items.length}</span></div>
+        <div class="sum">${money(sum)}</div>
+      </div>
+      ${items.map(o=>cvCard(o,s)).join("")||'<div style="padding:14px;text-align:center;color:var(--muted);font-size:12px">—</div>'}
+    </div>`;
+  }).join("");
+}
+function cvCard(o,s){
+  const dc=dueClass(o.acaoData,'');
+  return `<div class="cv-card" draggable="true" data-id="${o.id}" style="border-left-color:${s.cor}"
+    ondragstart="cvDragStart(event)" ondragend="cvDragEnd(event)" onclick="editOp('${o.id}')">
+    <h4>${esc(o.empresa)}</h4>
+    ${o.cidade?`<div class="cidade">📍 ${esc(o.cidade)}</div>`:""}
+    <div class="contato">${esc(o.contato||"—")}${o.cargo?" · "+esc(o.cargo):""}</div>
+    <div class="valor">${money(o.valor)}</div>
+    <div class="meta">
+      <span class="avatar" title="${esc(o.resp||"")}">${initials(o.resp||"?")}</span>
+      <span class="links">
+        ${o.insta?`<a href="${esc(instaUrl(o.insta))}" target="_blank" rel="noopener" title="Instagram" onclick="event.stopPropagation()">📷</a>`:""}
+        ${o.site?`<a href="${esc(siteUrl(o.site))}" target="_blank" rel="noopener" title="Site" onclick="event.stopPropagation()">🌐</a>`:""}
+      </span>
+      <span class="cv-origem">${esc(o.origem||"—")}</span>
+    </div>
+    ${o.acao?`<div class="cv-next ${dc}">📌 ${esc(o.acao)}${o.acaoData?" · "+fmtDate(o.acaoData):""}</div>`:""}
+  </div>`;
+}
+function renderCvKpis(){
+  const primeira = CRM_STAGES[0] ? CRM_STAGES[0].id : null;
+  const contatadas = CRM_OPS.filter(o=>o.etapa!==primeira).length;
+  const emNeg = CRM_OPS.filter(o=>o.etapa===ID_NEGOCIACAO).reduce((n,o)=>n+(Number(o.valor)||0),0);
+  const props = CRM_OPS.filter(o=>["proposta","negociacao"].includes(o.etapa)||o.dataProp).length;
+  const feitoPct = pctCV(contatadas, META_ESCOLAS);
+  const nf=n=>n.toLocaleString('pt-BR');
+  $("#cvKpis").innerHTML = `
+    <div class="kpi"><div class="v">${nf(contatadas)}</div><div class="l">Escolas contatadas</div></div>
+    <div class="kpi"><div class="v">${money(emNeg)}</div><div class="l">Em negociação</div></div>
+    <div class="kpi"><div class="v">${props}</div><div class="l">Propostas enviadas</div></div>
+    <div class="kpi accent"><div class="v">${fmtPct(feitoPct)}</div><div class="l">Da meta · ${nf(contatadas)} de ${nf(META_ESCOLAS)} escolas</div>
+      <div class="meta-bar"><span style="width:${feitoPct.toFixed(1)}%"></span></div></div>`;
+}
+let cvDragId=null;
+function cvDragStart(e){ cvDragId=e.target.dataset.id; e.target.classList.add("dragging"); e.dataTransfer.effectAllowed="move"; }
+function cvDragEnd(e){ e.target.classList.remove("dragging"); }
+function cvAllow(e){ e.preventDefault(); e.currentTarget.classList.add("drop"); }
+function cvLeave(e){ e.currentTarget.classList.remove("drop"); }
+function cvDrop(e,stageId){
+  e.preventDefault(); e.currentTarget.classList.remove("drop");
+  const o=CRM_OPS.find(x=>x.id===cvDragId);
+  if(o && o.etapa!==stageId){ o.etapa=stageId; saveCRM(); toast("Movido para "+stageById(stageId).nome); }
+  cvDragId=null; renderCV();
+}
+
+/* ----- Oportunidade ----- */
+function openOp(){
+  $("#opTitle").textContent="Nova oportunidade";
+  ["opId","opEmpresa","opCidade","opContato","opCargo","opFone","opEmail","opInsta","opSite","opValor","opDataProp","opLink","opAcao","opAcaoData","opObs"].forEach(i=>$("#"+i).value="");
+  $("#opEtapa").value=CRM_STAGES[0].id; $("#opOrigem").value=ORIGENS[0];
+  $("#opResp").value=CRM_TEAM.includes(me)?me:CRM_TEAM[0];
+  updateLinkPreviews(); $("#opDelBtn").style.display="none";
+  $("#opOverlay").classList.add("open");
+}
+function editOp(id){
+  const o=CRM_OPS.find(x=>x.id===id); if(!o)return;
+  $("#opTitle").textContent="Editar oportunidade";
+  $("#opId").value=o.id; $("#opEmpresa").value=o.empresa||""; $("#opCidade").value=o.cidade||"";
+  $("#opContato").value=o.contato||""; $("#opCargo").value=o.cargo||"";
+  $("#opFone").value=o.fone||""; $("#opEmail").value=o.email||"";
+  $("#opInsta").value=o.insta||""; $("#opSite").value=o.site||"";
+  $("#opEtapa").value=o.etapa; $("#opOrigem").value=o.origem||ORIGENS[0]; $("#opValor").value=o.valor||"";
+  $("#opResp").value=o.resp||CRM_TEAM[0]; $("#opDataProp").value=o.dataProp||""; $("#opLink").value=o.link||"";
+  $("#opAcao").value=o.acao||""; $("#opAcaoData").value=o.acaoData||""; $("#opObs").value=o.obs||"";
+  updateLinkPreviews(); $("#opDelBtn").style.display="block";
+  $("#opOverlay").classList.add("open");
+}
+function closeOp(){ $("#opOverlay").classList.remove("open"); }
+function saveOp(){
+  const empresa=$("#opEmpresa").value.trim();
+  if(!empresa){ toast("Informe a escola/empresa"); return; }
+  const data={empresa, cidade:$("#opCidade").value.trim(), contato:$("#opContato").value.trim(), cargo:$("#opCargo").value.trim(),
+    fone:$("#opFone").value.trim(), email:$("#opEmail").value.trim(),
+    insta:$("#opInsta").value.trim(), site:$("#opSite").value.trim(), etapa:$("#opEtapa").value,
+    origem:$("#opOrigem").value, valor:Number($("#opValor").value)||0, resp:$("#opResp").value,
+    dataProp:$("#opDataProp").value, link:$("#opLink").value.trim(),
+    acao:$("#opAcao").value.trim(), acaoData:$("#opAcaoData").value, obs:$("#opObs").value.trim()};
+  const id=$("#opId").value;
+  if(id){ Object.assign(CRM_OPS.find(x=>x.id===id), data); toast("Oportunidade atualizada"); }
+  else{ CRM_OPS.push({id:"o"+Date.now(), ...data}); toast("Oportunidade criada ✔"); }
+  saveCRM(); closeOp(); renderCV();
+}
+function deleteOp(){
+  const id=$("#opId").value; if(!id)return;
+  if(!confirm("Excluir esta oportunidade?"))return;
+  CRM_OPS=CRM_OPS.filter(x=>x.id!==id); saveCRM(); closeOp(); renderCV(); toast("Oportunidade excluída");
+}
+
+/* ----- Etapas ----- */
+function openStages(){ stageDraft=JSON.parse(JSON.stringify(CRM_STAGES)); renderStageList(); $("#stOverlay").classList.add("open"); }
+function closeStages(){ $("#stOverlay").classList.remove("open"); }
+function renderStageList(){
+  $("#stList").innerHTML = stageDraft.map((s,i)=>`
+    <div class="stage-row">
+      <input type="color" value="${s.cor}" onchange="stageDraft[${i}].cor=this.value">
+      <input type="text" value="${esc(s.nome)}" oninput="stageDraft[${i}].nome=this.value">
+      <button onclick="moveStage(${i},-1)" title="Subir">↑</button>
+      <button onclick="moveStage(${i},1)" title="Descer">↓</button>
+      <button class="del" onclick="removeStage(${i})" title="Remover">×</button>
+    </div>`).join("");
+}
+function moveStage(i,d){ const j=i+d; if(j<0||j>=stageDraft.length)return; const t=stageDraft[i]; stageDraft[i]=stageDraft[j]; stageDraft[j]=t; renderStageList(); }
+function removeStage(i){
+  const s=stageDraft[i];
+  const usados=CRM_OPS.filter(o=>o.etapa===s.id).length;
+  if(usados){ toast(`“${s.nome}” tem ${usados} oportunidade(s). Mova-as antes de remover.`); return; }
+  if(stageDraft.length<=2){ toast("O funil precisa de pelo menos 2 etapas"); return; }
+  stageDraft.splice(i,1); renderStageList();
+}
+function addStage(){ stageDraft.push({id:"et"+Date.now(), nome:"Nova etapa", cor:"#b48a76"}); renderStageList(); }
+function saveStagesCV(){
+  if(stageDraft.some(s=>!s.nome.trim())){ toast("Dê um nome a todas as etapas"); return; }
+  CRM_STAGES=JSON.parse(JSON.stringify(stageDraft));
+  saveCRM(); fillSelects(); closeStages(); renderCV(); toast("Etapas atualizadas ✔");
+}
+
+/* ----- Relatório ----- */
+function openReport(){ $("#repBody").innerHTML=buildReport(); $("#repOverlay").classList.add("open"); }
+function closeReport(){ $("#repOverlay").classList.remove("open"); }
+function buildReport(){
+  const nf=n=>n.toLocaleString('pt-BR');
+  const primeira = CRM_STAGES[0] ? CRM_STAGES[0].id : null;
+  const contatadas = CRM_OPS.filter(o=>o.etapa!==primeira).length;
+  const abertas = CRM_OPS.filter(o=>isOpenCV(o.etapa));
+  const emNeg = CRM_OPS.filter(o=>o.etapa===ID_NEGOCIACAO).reduce((n,o)=>n+(Number(o.valor)||0),0);
+  const props = CRM_OPS.filter(o=>["proposta","negociacao"].includes(o.etapa)||o.dataProp).length;
+  const ganhos = CRM_OPS.filter(o=>o.etapa==="ganho"), perdidos = CRM_OPS.filter(o=>o.etapa==="perdido");
+  const valGanho = ganhos.reduce((n,o)=>n+(Number(o.valor)||0),0);
+  const ticket = ganhos.length ? valGanho/ganhos.length : 0;
+  const conv = pctCV(ganhos.length, ganhos.length+perdidos.length);
+  const metaPct = pctCV(contatadas, META_ESCOLAS);
+  const pipeAberto = abertas.reduce((n,o)=>n+(Number(o.valor)||0),0);
+  const totalValor = CRM_OPS.reduce((n,o)=>n+(Number(o.valor)||0),0);
+
+  let h=`<div class="rep"><h3>Relatório do Funil Comercial</h3>
+    <div class="repdate">Gerado em ${new Date().toLocaleDateString('pt-BR')} · Benne Comunica</div>
+    <div class="sum-grid">
+      <div class="sum-item"><b>${nf(contatadas)}</b><span>Escolas contatadas</span></div>
+      <div class="sum-item"><b>${fmtPct(metaPct)}</b><span>Da meta (${nf(META_ESCOLAS)})</span></div>
+      <div class="sum-item"><b>${money(emNeg)}</b><span>Em negociação</span></div>
+      <div class="sum-item"><b>${props}</b><span>Propostas enviadas</span></div>
+      <div class="sum-item"><b>${money(pipeAberto)}</b><span>Pipeline aberto</span></div>
+      <div class="sum-item"><b>${money(valGanho)}</b><span>Fechado · ${ganhos.length}</span></div>
+      <div class="sum-item"><b>${money(ticket)}</b><span>Ticket médio</span></div>
+      <div class="sum-item"><b>${fmtPct(conv)}</b><span>Conversão</span></div>
+    </div>
+    <div class="sec">Funil por etapa</div>
+    <table><thead><tr><th>Etapa</th><th class="num">Oportunidades</th><th class="num">Valor</th><th class="num">% do valor</th></tr></thead><tbody>`;
+  CRM_STAGES.forEach(s=>{
+    const it=CRM_OPS.filter(o=>o.etapa===s.id);
+    const v=it.reduce((n,o)=>n+(Number(o.valor)||0),0);
+    h+=`<tr><td>${esc(s.nome)}</td><td class="num">${it.length}</td><td class="num">${money(v)}</td><td class="num">${fmtPct(pctCV(v,totalValor))}</td></tr>`;
+  });
+  h+=`</tbody></table><div class="sec">Por responsável</div>
+    <table><thead><tr><th>Responsável</th><th class="num">Em aberto</th><th class="num">Valor aberto</th><th class="num">Ganhos</th><th class="num">Valor ganho</th></tr></thead><tbody>`;
+  CRM_TEAM.forEach(t=>{
+    const ab=abertas.filter(o=>o.resp===t), g=ganhos.filter(o=>o.resp===t);
+    h+=`<tr><td>${esc(nick(t))}</td><td class="num">${ab.length}</td><td class="num">${money(ab.reduce((n,o)=>n+(Number(o.valor)||0),0))}</td><td class="num">${g.length}</td><td class="num">${money(g.reduce((n,o)=>n+(Number(o.valor)||0),0))}</td></tr>`;
+  });
+  h+=`</tbody></table><div class="sec">Por origem do lead</div>
+    <table><thead><tr><th>Origem</th><th class="num">Total</th><th class="num">Ganhos</th><th class="num">Perdidos</th><th class="num">Conversão</th></tr></thead><tbody>`;
+  const origensUsadas = ORIGENS.filter(o=>CRM_OPS.some(x=>x.origem===o));
+  origensUsadas.forEach(or=>{
+    const tot=CRM_OPS.filter(o=>o.origem===or);
+    const g=tot.filter(o=>o.etapa==="ganho").length, p=tot.filter(o=>o.etapa==="perdido").length;
+    h+=`<tr><td>${esc(or)}</td><td class="num">${tot.length}</td><td class="num">${g}</td><td class="num">${p}</td><td class="num">${(g+p)?fmtPct(pctCV(g,g+p)):"—"}</td></tr>`;
+  });
+  h+=`</tbody></table>`;
+  const atrasadas = abertas.filter(o=>o.acaoData && o.acaoData<today()).sort((a,b)=>a.acaoData.localeCompare(b.acaoData));
+  const proximas = abertas.filter(o=>o.acaoData && o.acaoData>=today()).sort((a,b)=>a.acaoData.localeCompare(b.acaoData)).slice(0,8);
+  h+=`<div class="sec">Próximas ações</div>`;
+  if(atrasadas.length) h+=`<ul>`+atrasadas.map(o=>`<li><span class="alert">⚠ Atrasada (${fmtDate(o.acaoData)})</span> — ${esc(o.empresa)}: ${esc(o.acao||"sem ação")} <em>(${esc(nick(o.resp||"—"))})</em></li>`).join("")+`</ul>`;
+  if(proximas.length) h+=`<ul>`+proximas.map(o=>`<li>${fmtDate(o.acaoData)} — ${esc(o.empresa)}: ${esc(o.acao)} <em>(${esc(nick(o.resp||"—"))})</em></li>`).join("")+`</ul>`;
+  if(!atrasadas.length && !proximas.length) h+=`<ul><li>Nenhuma ação agendada.</li></ul>`;
+  const semAcao = abertas.filter(o=>!o.acao);
+  let maiorEtapa=null,maiorVal=-1;
+  CRM_STAGES.filter(s=>isOpenCV(s.id)).forEach(s=>{ const v=CRM_OPS.filter(o=>o.etapa===s.id).reduce((n,o)=>n+(Number(o.valor)||0),0); if(v>maiorVal){maiorVal=v;maiorEtapa=s;} });
+  let bestO=null,bestC=-1;
+  origensUsadas.forEach(or=>{ const t=CRM_OPS.filter(o=>o.origem===or); const g=t.filter(o=>o.etapa==="ganho").length,p=t.filter(o=>o.etapa==="perdido").length; if(g+p>0){const c=pctCV(g,g+p); if(c>bestC){bestC=c;bestO=or;}} });
+  h+=`<div class="sec">Pontos de atenção e próximos passos</div><ul>`;
+  h+=`<li><b>Meta:</b> ${nf(contatadas)} de ${nf(META_ESCOLAS)} escolas (${fmtPct(metaPct)}). Faltam <b>${nf(Math.max(0,META_ESCOLAS-contatadas))}</b> — priorizar prospecção.</li>`;
+  if(atrasadas.length) h+=`<li class="alert">${atrasadas.length} follow-up(s) atrasado(s) — risco de esfriar. Retomar hoje.</li>`;
+  if(semAcao.length) h+=`<li>${semAcao.length} oportunidade(s) sem próxima ação definida — agendar o próximo passo.</li>`;
+  if(maiorEtapa && maiorVal>0) h+=`<li>Maior valor parado em <b>${esc(maiorEtapa.nome)}</b> (${money(maiorVal)}) — destravar essa etapa.</li>`;
+  if(bestO) h+=`<li class="ok">Origem que mais converte: <b>${esc(bestO)}</b> (${fmtPct(bestC)}) — investir nesse canal.</li>`;
+  if(ganhos.length) h+=`<li>Ticket médio: <b>${money(ticket)}</b> — referência para novas propostas.</li>`;
+  h+=`</ul></div>`;
+  return h;
+}
+
+/* ---------- POP-UP: PRIORIDADES DO DIA ---------- */
+const NICKS = {Isabela:"Bela", Leticia:"Lets", "Letícia":"Lets", Ana:"Papal"};
+const nick = n => NICKS[n] || n;
+const VERSICULOS = [
+  {t:"Tudo posso naquele que me fortalece.", r:"Filipenses 4:13"},
+  {t:"O Senhor é o meu pastor; nada me faltará.", r:"Salmos 23:1"},
+  {t:"Esforça-te, e tem bom ânimo; não temas, nem te espantes.", r:"Josué 1:9"},
+  {t:"Entrega o teu caminho ao Senhor; confia nele, e ele o fará.", r:"Salmos 37:5"},
+  {t:"Alegrai-vos na esperança; sede pacientes na tribulação.", r:"Romanos 12:12"},
+  {t:"E tudo quanto fizerdes, fazei-o de todo o coração.", r:"Colossenses 3:23"},
+  {t:"A alegria do Senhor é a vossa força.", r:"Neemias 8:10"},
+  {t:"Não andeis ansiosos por coisa alguma.", r:"Filipenses 4:6"},
+  {t:"Lança o teu cuidado sobre o Senhor, e ele te susterá.", r:"Salmos 55:22"},
+  {t:"Melhor é serem dois do que um, porque têm melhor paga do seu trabalho.", r:"Eclesiastes 4:9"},
+  {t:"Basta a cada dia o seu mal.", r:"Mateus 6:34"},
+  {t:"O coração do homem planeja o seu caminho, mas o Senhor lhe dirige os passos.", r:"Provérbios 16:9"},
+  {t:"Sede fortes e corajosos; o Senhor vosso Deus é convosco.", r:"Josué 1:9"},
+  {t:"Os que esperam no Senhor renovarão as suas forças.", r:"Isaías 40:31"}
+];
+function versiculoDoDia(){
+  const base = today()+"|"+me; let s=7;
+  for(const c of base) s=(s*31+c.charCodeAt(0))%1000003;
+  return VERSICULOS[s % VERSICULOS.length];
+}
+function greeting(){ const h=new Date().getHours(); return h<12?"Bom dia":h<18?"Boa tarde":"Boa noite"; }
+const briefKey = p => "benne_brief_"+p+"_"+today();
+function maybeShowBrief(){ if(!localStorage.getItem(briefKey(me))) openBrief(); }
+function openBrief(){ $("#brBody").innerHTML=buildBrief(); $("#brOverlay").classList.add("open"); }
+function closeBrief(){ $("#brOverlay").classList.remove("open"); }
+function ackBrief(){ localStorage.setItem(briefKey(me),"1"); closeBrief(); toast("Bora, "+nick(me)+"! 🚀"); }
+function openFromBrief(id){ closeBrief(); editDemand(id); }
+
+function buildBrief(){
+  const minhas = DB.filter(d=>d.responsavel===me && d.status!=='done');
+  const atrasadas = minhas.filter(d=>d.prazo && d.prazo<today()).sort((a,b)=>a.prazo.localeCompare(b.prazo));
+  const hoje = minhas.filter(d=>d.prazo===today());
+  const aprov = minhas.filter(d=>d.status==='approval');
+  const evHoje = EVENTS.filter(e=>e.pessoa===me && e.data===today());
+  const tmHoje = TEAMEV.filter(t=>(t.pessoas||[]).includes(me) && t.data===today());
+  const dataFmt = new Date().toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'});
+  // Comercial: só entra se a pessoa é do comercial E já desbloqueou a aba nesta sessão
+  const cvOn = CRM_TEAM.includes(me) && crmUnlocked;
+  const cvMinhas = cvOn ? CRM_OPS.filter(o=>o.resp===me && isOpenCV(o.etapa)) : [];
+  const cvAtraso = cvMinhas.filter(o=>o.acaoData && o.acaoData<today()).sort((a,b)=>a.acaoData.localeCompare(b.acaoData));
+  const cvHoje = cvMinhas.filter(o=>o.acaoData===today());
+  const cvNeg = cvMinhas.filter(o=>o.etapa===ID_NEGOCIACAO);
+  const nada = !atrasadas.length && !hoje.length && !aprov.length && !evHoje.length && !tmHoje.length
+               && !cvAtraso.length && !cvHoje.length && !cvNeg.length;
+
+  const v = versiculoDoDia();
+  let h = `<div class="br-hero">
+    <h3>${greeting()}, ${esc(nick(me))}! 👋</h3>
+    <div class="dt">${dataFmt}</div>
+    <div class="br-moti">“${esc(v.t)}”<span class="ref">— ${esc(v.r)}</span></div>
+    <div class="br-chips">
+      ${atrasadas.length?`<span class="br-chip red">⚠ ${atrasadas.length} atrasada(s)</span>`:''}
+      <span class="br-chip">📌 ${hoje.length} para hoje</span>
+      ${aprov.length?`<span class="br-chip">⏳ ${aprov.length} em aprovação</span>`:''}
+      ${(evHoje.length+tmHoje.length)?`<span class="br-chip">🗓️ ${evHoje.length+tmHoje.length} na agenda</span>`:''}
+      ${cvOn&&(cvAtraso.length+cvHoje.length+cvNeg.length)?`<span class="br-chip">💼 ${cvAtraso.length+cvHoje.length+cvNeg.length} comercial</span>`:''}
+      ${nada?`<span class="br-chip green">✓ Dia tranquilo</span>`:''}
+    </div>
+  </div>
+  <div class="modal-body" style="padding:20px 22px">`;
+
+  if(atrasadas.length){
+    h += `<div class="br-sec">🔴 Atrasadas — resolver primeiro</div>`;
+    h += atrasadas.map(d=>`<div class="br-item late" onclick="openFromBrief('${d.id}')">
+      <div class="grow"><h5>${esc(d.titulo)}</h5><div class="sub">${esc(d.cliente)} · ${esc(d.categoria)}</div></div>
+      <span class="tag late">${fmtDate(d.prazo)}</span></div>`).join("");
+  }
+  if(hoje.length){
+    h += `<div class="br-sec">📌 Para hoje</div>`;
+    h += hoje.map(d=>`<div class="br-item today" onclick="openFromBrief('${d.id}')">
+      <div class="grow"><h5>${esc(d.titulo)}</h5><div class="sub">${esc(d.cliente)} · ${esc(d.categoria)}</div></div>
+      <span class="tag today">hoje</span></div>`).join("");
+  }
+  if(aprov.length){
+    h += `<div class="br-sec">⏳ Em aprovação — cobrar retorno</div>`;
+    h += aprov.map(d=>`<div class="br-item appr" onclick="openFromBrief('${d.id}')">
+      <div class="grow"><h5>${esc(d.titulo)}</h5><div class="sub">${esc(d.cliente)}</div></div>
+      <span class="tag">${fmtDate(d.prazo)}</span></div>`).join("");
+  }
+  if(evHoje.length||tmHoje.length){
+    h += `<div class="br-sec">🗓️ Sua agenda de hoje</div>`;
+    h += tmHoje.map(t=>`<div class="br-item tm">
+      <div class="grow"><h5>👥 ${esc(t.titulo)}</h5><div class="sub">Com: ${esc((t.pessoas||[]).map(nick).join(", "))}</div></div>
+      <span class="tag">${esc(t.hora||"—")}</span></div>`).join("");
+    h += evHoje.map(e=>`<div class="br-item ev">
+      <div class="grow"><h5>🗓️ ${esc(e.titulo)}</h5><div class="sub">Compromisso pessoal</div></div>
+      <span class="tag">${esc(e.hora||"—")}</span></div>`).join("");
+  }
+  if(cvOn && (cvAtraso.length||cvHoje.length||cvNeg.length)){
+    h += `<div class="br-sec">💼 Comercial</div>`;
+    h += cvAtraso.map(o=>`<div class="br-item late" onclick="closeBrief();go('comercial');setTimeout(()=>editOp('${o.id}'),200)">
+      <div class="grow"><h5>${esc(o.empresa)}</h5><div class="sub">${esc(o.acao||"Sem ação definida")} · ${money(o.valor)}</div></div>
+      <span class="tag late">${fmtDate(o.acaoData)}</span></div>`).join("");
+    h += cvHoje.map(o=>`<div class="br-item today" onclick="closeBrief();go('comercial');setTimeout(()=>editOp('${o.id}'),200)">
+      <div class="grow"><h5>${esc(o.empresa)}</h5><div class="sub">${esc(o.acao||"Sem ação definida")} · ${money(o.valor)}</div></div>
+      <span class="tag today">hoje</span></div>`).join("");
+    h += cvNeg.map(o=>`<div class="br-item appr" onclick="closeBrief();go('comercial');setTimeout(()=>editOp('${o.id}'),200)">
+      <div class="grow"><h5>${esc(o.empresa)}</h5><div class="sub">Em negociação · ${esc(o.acao||"Definir próximo passo")}</div></div>
+      <span class="tag">${money(o.valor)}</span></div>`).join("");
+  }
+  if(nada){
+    h += `<div class="br-empty">🎉 Nenhuma pendência para hoje, ${esc(nick(me))}!<br><span style="font-weight:400;font-size:13px">Aproveita para adiantar o que vem aí ou tomar aquele café merecido.</span></div>`;
+  }
+  h += `</div>`;
+  return h;
+}
+
 /* ---------- NAV ---------- */
 function toggleNav(){
   const n=$("#nav"); n.classList.toggle("collapsed");
   localStorage.setItem("benne_navcollapsed", n.classList.contains("collapsed")?"1":"0");
 }
 function go(v){
+  if(v==="comercial"){
+    if(!CRM_TEAM.includes(me)){ toast("Área restrita ao comercial"); return; }
+    if(!crmUnlocked){ openPw(); return; }
+  }
+  showView(v);
+}
+function showView(v){
   document.querySelectorAll(".view").forEach(s=>s.classList.remove("active"));
   document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
   $("#view-"+v).classList.add("active");
-  document.querySelector(`nav button[data-view="${v}"]`).classList.add("active");
+  const nb=document.querySelector(`nav button[data-view="${v}"]`); if(nb)nb.classList.add("active");
   if(v==="pauta")renderPauta();
   if(v==="kanban")renderKanban();
   if(v==="checklist")renderChecklist();
   if(v==="clientes"){currentClient=null;renderClientes();}
   if(v==="automacoes")renderAutos();
+  if(v==="comercial")renderCV();
 }
 
 /* ---------- INIT SELECTS ---------- */
@@ -760,9 +1410,16 @@ function fillSelects(){
   $("#aResp").innerHTML = TEAM.map(t=>opt(t,t)).join("");
   $("#aWeekday").innerHTML = WEEKDAYS.map((w,i)=>`<option value="${i}">${w}</option>`).join("");
   $("#aMonth").innerHTML = MONTHS.map((m,i)=>`<option value="${i+1}">${m}</option>`).join("");
+  // Comercial
+  $("#navComercial").style.display = CRM_TEAM.includes(me) ? "flex" : "none";
+  $("#fCvResp").innerHTML = '<option value="">Todos os responsáveis</option>'+CRM_TEAM.map(t=>opt(t,nick(t))).join("");
+  $("#fOrigem").innerHTML = '<option value="">Todas as origens</option>'+ORIGENS.map(o=>opt(o,o)).join("");
+  $("#opResp").innerHTML = CRM_TEAM.map(t=>opt(t,nick(t))).join("");
+  $("#opOrigem").innerHTML = ORIGENS.map(o=>opt(o,o)).join("");
+  $("#opEtapa").innerHTML = CRM_STAGES.map(s=>opt(s.id,s.nome)).join("");
   $("#clMonth").value = today().slice(0,7);
 }
-function setMe(v){ me=v; localStorage.setItem(ME_KEY,v); fillSelects(); go("kanban"); }
+function setMe(v){ me=v; localStorage.setItem(ME_KEY,v); fillSelects(); go("kanban"); maybeShowBrief(); }
 
 /* ---------- PAUTA ---------- */
 function setPautaMode(m){
@@ -1343,6 +2000,7 @@ function refreshCurrent(){
   if(v==="checklist")renderChecklist();
   if(v==="clientes"){ currentClient?openClient(currentClient):renderClientes(); }
   if(v==="automacoes")renderAutos();
+  if(v==="comercial" && crmUnlocked)renderCV();
 }
 
 /* ---------- EXPORT / IMPORT ---------- */
@@ -1374,7 +2032,13 @@ if(FB_ENABLED && fbRef){
   firebase.database().ref(".info/connected").on("value", s=>setOnline(s.val()===true));
 } else {
   processAutomations();
+  maybeShowBrief();
 }
+$("#brOverlay").addEventListener("click",e=>{ if(e.target.id==="brOverlay")closeBrief(); });
+$("#pwOverlay").addEventListener("click",e=>{ if(e.target.id==="pwOverlay")closePw(); });
+$("#opOverlay").addEventListener("click",e=>{ if(e.target.id==="opOverlay")closeOp(); });
+$("#stOverlay").addEventListener("click",e=>{ if(e.target.id==="stOverlay")closeStages(); });
+$("#repOverlay").addEventListener("click",e=>{ if(e.target.id==="repOverlay")closeReport(); });
 </script>
 </body>
 </html>

@@ -63,6 +63,34 @@
   .stage-row button{background:#efe8df;color:var(--brown-dark);border-radius:7px;width:32px;height:32px;font-weight:800;flex-shrink:0}
   .stage-row .del:hover{background:#f6e9e6;color:#c0503f}
   .btn.cv{background:#5b7fa6}.btn.cv:hover{background:#4d6f96}
+  /* ===== ADM ===== */
+  .btn.adm{background:#8a6f4d}.btn.adm:hover{background:#77603f}
+  .adm-sub{display:flex;gap:4px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+  .adm-sub button{background:none;padding:10px 14px;font-weight:700;font-size:14px;color:var(--muted);border-bottom:3px solid transparent}
+  .adm-sub button.on{color:var(--brown-dark);border-bottom-color:var(--terra)}
+  .adm-board{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start}
+  .adm-col{background:#efe8df;border-radius:14px;padding:10px;min-height:120px}
+  .adm-col.drop{outline:2px dashed var(--terra);outline-offset:-4px;background:#e9dfd2}
+  .adm-colhead{display:flex;align-items:center;justify-content:space-between;padding:6px 8px 10px;font-weight:800;font-size:13px}
+  .adm-colhead .count{background:#fff;color:var(--muted);border-radius:20px;padding:1px 9px;font-size:12px}
+  .adm-colhead .bar{width:9px;height:9px;border-radius:50%;margin-right:7px;display:inline-block}
+  .a-todo .bar{background:var(--todo)}.a-doing .bar{background:var(--doing)}.a-waiting .bar{background:#7aa2c9}.a-done .bar{background:var(--done)}
+  .adm-card{background:#fff;border-radius:11px;padding:12px;margin-bottom:10px;box-shadow:var(--shadow);cursor:grab;border-left:4px solid var(--line)}
+  .adm-card:active{cursor:grabbing}.adm-card.dragging{opacity:.45}
+  .adm-card.a-todo{border-left-color:var(--todo)}.adm-card.a-doing{border-left-color:var(--doing)}
+  .adm-card.a-waiting{border-left-color:#7aa2c9}.adm-card.a-done{border-left-color:var(--done)}
+  .adm-card .cat{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--terra)}
+  .adm-card h4{font-size:14px;margin:4px 0 8px;line-height:1.3}
+  .adm-card .meta{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--muted)}
+  .adm-card a.doclink{text-decoration:none;font-size:13px}
+  .act-table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+  .act-table th{background:var(--brown);color:#fff;text-align:left;padding:11px 14px;font-size:11px;text-transform:uppercase;letter-spacing:.4px}
+  .act-table td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:middle}
+  .act-table tr:hover td{background:var(--cream);cursor:pointer}
+  .pill{font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap}
+  .pill.ativo{background:#e7f3e2;color:#4e8a3f}.pill.vencendo{background:#fbf0dc;color:#b9832a}
+  .pill.vencido{background:#f7e0dc;color:#c0503f}.pill.sem{background:#eef1f4;color:#63707e}
+  .act-doc{text-decoration:none;color:var(--terra);font-weight:700;font-size:13px}
   .btn.ghost{background:#efe8df;color:var(--brown-dark)}.btn.ghost:hover{background:#e5dbcd}
   .lock-hero{text-align:center;padding:34px 24px}
   .lock-hero .ico{font-size:44px}
@@ -444,6 +472,7 @@
   <button data-view="clientes" onclick="go('clientes')" title="Clientes"><span class="ic">🏢</span><span class="lbl">Clientes</span></button>
   <button data-view="automacoes" onclick="go('automacoes')" title="Automações"><span class="ic">🔁</span><span class="lbl">Automações</span></button>
   <button data-view="comercial" id="navComercial" onclick="go('comercial')" title="Comercial" style="display:none"><span class="ic">💼</span><span class="lbl">Comercial</span></button>
+  <button data-view="adm" id="navAdm" onclick="go('adm')" title="ADM" style="display:none"><span class="ic">🗄️</span><span class="lbl">ADM</span></button>
 </nav>
 
 <main>
@@ -524,6 +553,41 @@
       <select id="fOrigem" onchange="renderCV()"></select>
     </div>
     <div class="cv-board" id="cvBoard"></div>
+  </section>
+
+  <!-- ADM -->
+  <section class="view" id="view-adm">
+    <div class="view-head">
+      <div><h2>ADM</h2><p>Gestão administrativa — demandas e contratos</p></div>
+      <button class="btn adm push" id="admAddBtn" onclick="admAdd()">＋ Nova demanda</button>
+    </div>
+    <div class="adm-sub">
+      <button id="admTabT" class="on" onclick="admSub('tasks')">🗂️ Demandas administrativas</button>
+      <button id="admTabC" onclick="admSub('cts')">📄 Contratos & Documentos</button>
+    </div>
+    <!-- Demandas -->
+    <div id="admViewTasks">
+      <div class="kpis" id="admTKpis"></div>
+      <div class="filters">
+        <input type="search" id="admFBuscaT" placeholder="🔎 Buscar demanda..." oninput="admRenderTasks()" style="min-width:220px;border:1px solid var(--line);border-radius:8px;padding:8px 11px">
+        <select id="admFCatT" onchange="admRenderTasks()"></select>
+      </div>
+      <div class="adm-board" id="admBoard"></div>
+    </div>
+    <!-- Contratos -->
+    <div id="admViewCts" style="display:none">
+      <div class="kpis" id="admCKpis"></div>
+      <div class="filters">
+        <input type="search" id="admFBuscaC" placeholder="🔎 Buscar cliente..." oninput="admRenderCts()" style="min-width:220px;border:1px solid var(--line);border-radius:8px;padding:8px 11px">
+        <select id="admFStatusC" onchange="admRenderCts()">
+          <option value="">Todos os status</option>
+          <option value="ativo">Ativos</option>
+          <option value="vencendo">Vencendo (30 dias)</option>
+          <option value="vencido">Vencidos</option>
+        </select>
+      </div>
+      <div id="admCtBody"></div>
+    </div>
   </section>
 
   <!-- AUTOMAÇÕES -->
@@ -686,6 +750,95 @@
   </div>
 </div>
 
+<!-- MODAL SENHA ADM -->
+<div class="overlay" id="apwOverlay">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head"><h3 id="apwTitle">Área ADM</h3><button class="btn-x" onclick="admClosePw()">×</button></div>
+    <div class="modal-body">
+      <div class="lock-hero" style="padding:10px 0 4px"><div class="ico">🔒</div></div>
+      <p id="apwMsg" style="font-size:13px;color:var(--muted);text-align:center;line-height:1.5;margin-bottom:6px"></p>
+      <label>Senha</label>
+      <input type="password" id="apwInput" placeholder="••••••" onkeydown="if(event.key==='Enter')admSubmitPw()">
+      <div id="apwConfirmWrap" style="display:none">
+        <label>Confirmar senha</label>
+        <input type="password" id="apwConfirm" placeholder="••••••" onkeydown="if(event.key==='Enter')admSubmitPw()">
+      </div>
+      <p id="apwErr" style="color:#c0503f;font-size:13px;font-weight:700;margin-top:10px;display:none"></p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-cancel" onclick="admClosePw()">Cancelar</button>
+      <button class="btn adm" id="apwBtn" onclick="admSubmitPw()">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DEMANDA ADM -->
+<div class="overlay" id="atOverlay">
+  <div class="modal">
+    <div class="modal-head"><h3 id="atTitle">Nova demanda</h3><button class="btn-x" onclick="admCloseTask()">×</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="atId">
+      <label>Título</label>
+      <input id="atTitulo" placeholder="Ex: Renovar assinatura do Canva">
+      <label>Descrição</label>
+      <textarea id="atDesc" placeholder="Detalhes, observações..."></textarea>
+      <div class="row2">
+        <div><label>Categoria</label><select id="atCat"></select></div>
+        <div><label>Etapa</label><select id="atStatus">
+          <option value="todo">Para fazer</option><option value="doing">Fazendo</option>
+          <option value="waiting">Aguardando retorno</option><option value="done">Finalizado</option>
+        </select></div>
+      </div>
+      <div class="row2">
+        <div><label>Responsável</label><select id="atResp"></select></div>
+        <div><label>Prazo</label><input type="date" id="atPrazo"></div>
+      </div>
+      <label>Link do documento (opcional)</label>
+      <input id="atLink" type="url" placeholder="https://drive.google.com/...">
+    </div>
+    <div class="modal-foot">
+      <button class="btn-del" id="atDelBtn" onclick="admDeleteTask()">Excluir</button>
+      <button class="btn-cancel" onclick="admCloseTask()">Cancelar</button>
+      <button class="btn adm" onclick="admSaveTask()">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CONTRATO ADM -->
+<div class="overlay" id="acOverlay">
+  <div class="modal">
+    <div class="modal-head"><h3 id="acTitle">Novo contrato</h3><button class="btn-x" onclick="admCloseCt()">×</button></div>
+    <div class="modal-body">
+      <input type="hidden" id="acId">
+      <div class="row2">
+        <div><label>Cliente</label><input id="acCliente" placeholder="Ex: Colégio Cecat"></div>
+        <div><label>Tipo</label><select id="acTipo">
+          <option>Prestação de serviços</option><option>Social media</option>
+          <option>Tráfego pago</option><option>Projeto pontual</option><option>Outro</option>
+        </select></div>
+      </div>
+      <div class="row2">
+        <div><label>Início da vigência</label><input type="date" id="acInicio"></div>
+        <div><label>Renovação / fim</label><input type="date" id="acFim"></div>
+      </div>
+      <div class="row2">
+        <div><label>Valor mensal (R$)</label><input type="number" id="acValor" min="0" step="50" placeholder="0"></div>
+        <div><label>Dia de vencimento</label><input type="number" id="acVenc" min="1" max="31" placeholder="Ex: 10"></div>
+      </div>
+      <label>Link do contrato / documentos</label>
+      <input id="acLink" type="url" placeholder="https://drive.google.com/..." oninput="admUpdateCLink()">
+      <a id="acLinkOpen" href="#" target="_blank" rel="noopener" style="display:none;font-size:13px;color:var(--terra);font-weight:700;margin-top:8px">📄 Abrir documento ↗</a>
+      <label>Observações</label>
+      <textarea id="acObs" placeholder="Cláusulas, reajustes, contatos..."></textarea>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-del" id="acDelBtn" onclick="admDeleteCt()">Excluir</button>
+      <button class="btn-cancel" onclick="admCloseCt()">Cancelar</button>
+      <button class="btn adm" onclick="admSaveCt()">Salvar</button>
+    </div>
+  </div>
+</div>
+
 <!-- MODAL OPORTUNIDADE -->
 <div class="overlay" id="opOverlay">
   <div class="modal">
@@ -842,7 +995,17 @@ let CRM_PASS = (()=>{ try{return localStorage.getItem(CRM_PW_KEY)||null;}catch(e
 let crmUnlocked = sessionStorage.getItem("benne_crm_unlocked")==="1";
 let stageDraft = [];
 function saveCRM(){ syncUp(); }
-const TEAM = ["Isabela","Ana","Leticia"];
+
+/* ===== ADM (Isabela + Murilo) ===== */
+const ADM_TEAM = ["Isabela","Murilo"];
+const ADM_CATS = ["Contratos","Documentos","Financeiro","Ferramentas/Assinaturas","RH","Jurídico","Fornecedores","Outros"];
+const ADM_TASKS_KEY="benne_adm_tasks_v1", ADM_CTS_KEY="benne_adm_cts_v1", ADM_PW_KEY="benne_adm_pw_v1";
+let ADM_TASKS = (()=>{ try{const r=localStorage.getItem(ADM_TASKS_KEY); if(r)return JSON.parse(r);}catch(e){} return []; })();
+let ADM_CTS = (()=>{ try{const r=localStorage.getItem(ADM_CTS_KEY); if(r)return JSON.parse(r);}catch(e){} return []; })();
+let ADM_PASS = (()=>{ try{return localStorage.getItem(ADM_PW_KEY)||null;}catch(e){ return null; } })();
+let admUnlocked = sessionStorage.getItem("benne_adm_unlocked")==="1";
+function saveADM(){ syncUp(); }
+const TEAM = ["Isabela","Ana","Leticia","Murilo"];
 const ROLES = {Isabela:"Operacional",Ana:"Filmaker / Planner / Atendimento",Leticia:"Design / Extras / Social Media"};
 const CATEGORIES = ["Planejamento","Design","Captação de vídeos","Edição de vídeos","Revisão","Entrega","Social Media","Extras"];
 const STATUS = {todo:"Para fazer",doing:"Fazendo",approval:"Em aprovação",done:"Finalizado"};
@@ -922,11 +1085,14 @@ function syncUp(){
     localStorage.setItem(CRM_OPS_KEY, JSON.stringify(CRM_OPS));
     localStorage.setItem(CRM_ST_KEY, JSON.stringify(CRM_STAGES));
     if(CRM_PASS) localStorage.setItem(CRM_PW_KEY, CRM_PASS);
+    localStorage.setItem(ADM_TASKS_KEY, JSON.stringify(ADM_TASKS));
+    localStorage.setItem(ADM_CTS_KEY, JSON.stringify(ADM_CTS));
+    if(ADM_PASS) localStorage.setItem(ADM_PW_KEY, ADM_PASS);
   }catch(e){}
   if(!FB_ENABLED||!fbRef) return;
   clearTimeout(_syncTimer);
   _syncTimer=setTimeout(()=>{
-    const state=JSON.parse(JSON.stringify({demands:DB,clients:CLIENTS,check:CHECK,deadlines:DEADLINES,na:NA,events:EVENTS,teamev:TEAMEV,automations:AUTOMATIONS,crmOps:CRM_OPS,crmStages:CRM_STAGES,crmPass:CRM_PASS||null}));
+    const state=JSON.parse(JSON.stringify({demands:DB,clients:CLIENTS,check:CHECK,deadlines:DEADLINES,na:NA,events:EVENTS,teamev:TEAMEV,automations:AUTOMATIONS,crmOps:CRM_OPS,crmStages:CRM_STAGES,crmPass:CRM_PASS||null,admTasks:ADM_TASKS,admCts:ADM_CTS,admPass:ADM_PASS||null}));
     fbRef.set(state).catch(e=>console.warn("Sync falhou:",e));
   },150);
 }
@@ -947,6 +1113,9 @@ function applyRemote(val){
   CRM_OPS = Array.isArray(val.crmOps)?val.crmOps:(val.crmOps?Object.values(val.crmOps):[]);
   if(val.crmStages){ CRM_STAGES = Array.isArray(val.crmStages)?val.crmStages:Object.values(val.crmStages); }
   CRM_PASS = val.crmPass || null;
+  ADM_TASKS = Array.isArray(val.admTasks)?val.admTasks:(val.admTasks?Object.values(val.admTasks):[]);
+  ADM_CTS = Array.isArray(val.admCts)?val.admCts:(val.admCts?Object.values(val.admCts):[]);
+  ADM_PASS = val.admPass || null;
   const _seen={}; DB = DB.filter(d=>{ if(!d||!d.id) return true; if(_seen[d.id]) return false; _seen[d.id]=true; return true; });
   try{
     localStorage.setItem(STORE_KEY, JSON.stringify(DB));
@@ -1265,8 +1434,199 @@ function buildReport(){
   return h;
 }
 
+/* ================= ADM (Isabela + Murilo) ================= */
+const admStatusNome={todo:"Para fazer",doing:"Fazendo",waiting:"Aguardando retorno",done:"Finalizado"};
+function admCtStatus(c){
+  if(!c.fim) return {k:"sem",l:"Sem prazo"};
+  const diff=(new Date(c.fim)-new Date(today()))/86400000;
+  if(diff<0) return {k:"vencido",l:"Vencido"};
+  if(diff<=30) return {k:"vencendo",l:"Vence em "+Math.ceil(diff)+"d"};
+  return {k:"ativo",l:"Ativo"};
+}
+/* ---- senha ---- */
+function admOpenPw(){
+  const novo=!ADM_PASS;
+  $("#apwTitle").textContent = novo ? "Criar senha do ADM" : "Área ADM";
+  $("#apwMsg").textContent = novo
+    ? "Primeira vez. Crie uma senha para a área ADM — compartilhada entre Bela e Mu."
+    : "Área restrita ao ADM. Digite a senha para continuar.";
+  $("#apwConfirmWrap").style.display = novo?"block":"none";
+  $("#apwBtn").textContent = novo?"Criar senha":"Entrar";
+  $("#apwInput").value=""; $("#apwConfirm").value=""; $("#apwErr").style.display="none";
+  $("#apwOverlay").classList.add("open"); setTimeout(()=>$("#apwInput").focus(),100);
+}
+function admClosePw(){ $("#apwOverlay").classList.remove("open"); }
+async function admSubmitPw(){
+  const v=$("#apwInput").value;
+  if(!v){ $("#apwErr").textContent="Digite a senha."; $("#apwErr").style.display="block"; return; }
+  if(!ADM_PASS){
+    if(v.length<4){ $("#apwErr").textContent="Use pelo menos 4 caracteres."; $("#apwErr").style.display="block"; return; }
+    if(v!==$("#apwConfirm").value){ $("#apwErr").textContent="As senhas não conferem."; $("#apwErr").style.display="block"; return; }
+    ADM_PASS=await hashPass(v); saveADM(); admUnlock(); toast("Senha criada ✔");
+  } else {
+    if(await hashPass(v)!==ADM_PASS){ $("#apwErr").textContent="Senha incorreta."; $("#apwErr").style.display="block"; return; }
+    admUnlock();
+  }
+}
+function admUnlock(){ admUnlocked=true; sessionStorage.setItem("benne_adm_unlocked","1"); admClosePw(); showView("adm"); admRender(); }
+/* ---- sub-abas ---- */
+let admTab="tasks";
+function admSub(s){
+  admTab=s;
+  $("#admTabT").classList.toggle("on",s==="tasks");
+  $("#admTabC").classList.toggle("on",s==="cts");
+  $("#admViewTasks").style.display = s==="tasks"?"block":"none";
+  $("#admViewCts").style.display = s==="cts"?"block":"none";
+  $("#admAddBtn").textContent = s==="tasks"?"＋ Nova demanda":"＋ Novo contrato";
+  admRender();
+}
+function admAdd(){ admTab==="tasks"?admOpenTask():admOpenCt(); }
+function admRender(){ if(admTab==="tasks")admRenderTasks(); else admRenderCts(); }
+/* ---- demandas ---- */
+function admRenderTKpis(){
+  const total=ADM_TASKS.length, andamento=ADM_TASKS.filter(t=>t.status==="doing").length;
+  const aguardando=ADM_TASKS.filter(t=>t.status==="waiting").length;
+  const atrasadas=ADM_TASKS.filter(t=>t.status!=="done"&&t.prazo&&t.prazo<today()).length;
+  $("#admTKpis").innerHTML=`
+    <div class="kpi accent"><div class="v">${total}</div><div class="l">Demandas ativas</div></div>
+    <div class="kpi"><div class="v">${andamento}</div><div class="l">Fazendo</div></div>
+    <div class="kpi"><div class="v">${aguardando}</div><div class="l">Aguardando retorno</div></div>
+    <div class="kpi"><div class="v" style="color:${atrasadas?'#c0503f':''}">${atrasadas}</div><div class="l">Em atraso</div></div>`;
+}
+function admTFiltered(){
+  const q=($("#admFBuscaT").value||"").toLowerCase().trim(), c=$("#admFCatT").value;
+  return ADM_TASKS.filter(t=>(!c||t.categoria===c)&&(!q||(t.titulo||"").toLowerCase().includes(q)||(t.desc||"").toLowerCase().includes(q)));
+}
+function admRenderTasks(){
+  admRenderTKpis();
+  const list=admTFiltered();
+  const cols=[["todo","Para fazer"],["doing","Fazendo"],["waiting","Aguardando retorno"],["done","Finalizado"]];
+  $("#admBoard").innerHTML=cols.map(([k,label])=>{
+    const items=list.filter(t=>t.status===k);
+    return `<div class="adm-col a-${k}" data-status="${k}" ondragover="admAllow(event)" ondragleave="admLeave(event)" ondrop="admDrop(event,'${k}')">
+      <div class="adm-colhead"><span><span class="bar"></span>${label}</span><span class="count">${items.length}</span></div>
+      ${items.map(admTCard).join("")||'<div style="padding:14px;text-align:center;color:var(--muted);font-size:12px">—</div>'}
+    </div>`;
+  }).join("");
+}
+function admTCard(t){
+  const dc=dueClass(t.prazo,t.status);
+  return `<div class="adm-card a-${t.status}" draggable="true" data-id="${t.id}"
+    ondragstart="admDragStart(event)" ondragend="admDragEnd(event)" onclick="admEditTask('${t.id}')">
+    <div class="cat">${esc(t.categoria)}</div>
+    <h4>${esc(t.titulo)}</h4>
+    <div class="meta">
+      <span class="avatar" title="${esc(t.resp||'')}">${initials(t.resp||'?')}</span>
+      <span style="display:flex;align-items:center;gap:8px">
+        ${t.link?`<a class="doclink" href="${esc(t.link)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📎</a>`:""}
+        ${t.prazo?`<span class="due ${dc}">📅 ${fmtDate(t.prazo)}</span>`:""}
+      </span>
+    </div></div>`;
+}
+let admDragId=null;
+function admDragStart(e){ admDragId=e.target.dataset.id; e.target.classList.add("dragging"); e.dataTransfer.effectAllowed="move"; }
+function admDragEnd(e){ e.target.classList.remove("dragging"); }
+function admAllow(e){ e.preventDefault(); e.currentTarget.classList.add("drop"); }
+function admLeave(e){ e.currentTarget.classList.remove("drop"); }
+function admDrop(e,status){
+  e.preventDefault(); e.currentTarget.classList.remove("drop");
+  const t=ADM_TASKS.find(x=>x.id===admDragId);
+  if(t&&t.status!==status){ t.status=status; saveADM(); toast("Movido para "+admStatusNome[status]); }
+  admDragId=null; admRenderTasks();
+}
+function admOpenTask(){
+  $("#atTitle").textContent="Nova demanda";
+  ["atId","atTitulo","atDesc","atPrazo","atLink"].forEach(i=>$("#"+i).value="");
+  $("#atCat").value=ADM_CATS[0]; $("#atStatus").value="todo"; $("#atResp").value=ADM_TEAM.includes(me)?me:ADM_TEAM[0];
+  $("#atDelBtn").style.display="none"; $("#atOverlay").classList.add("open");
+}
+function admEditTask(id){
+  const t=ADM_TASKS.find(x=>x.id===id); if(!t)return;
+  $("#atTitle").textContent="Editar demanda";
+  $("#atId").value=t.id; $("#atTitulo").value=t.titulo; $("#atDesc").value=t.desc||"";
+  $("#atCat").value=t.categoria; $("#atStatus").value=t.status; $("#atResp").value=t.resp||ADM_TEAM[0];
+  $("#atPrazo").value=t.prazo||""; $("#atLink").value=t.link||"";
+  $("#atDelBtn").style.display="block"; $("#atOverlay").classList.add("open");
+}
+function admCloseTask(){ $("#atOverlay").classList.remove("open"); }
+function admSaveTask(){
+  const titulo=$("#atTitulo").value.trim(); if(!titulo){ toast("Dê um título"); return; }
+  const data={titulo,desc:$("#atDesc").value.trim(),categoria:$("#atCat").value,status:$("#atStatus").value,resp:$("#atResp").value,prazo:$("#atPrazo").value,link:$("#atLink").value.trim()};
+  const id=$("#atId").value;
+  if(id){ Object.assign(ADM_TASKS.find(x=>x.id===id),data); toast("Demanda atualizada"); }
+  else{ ADM_TASKS.push({id:"at"+Date.now(),...data}); toast("Demanda criada ✔"); }
+  saveADM(); admCloseTask(); admRenderTasks();
+}
+function admDeleteTask(){
+  const id=$("#atId").value; if(!id)return; if(!confirm("Excluir esta demanda?"))return;
+  ADM_TASKS=ADM_TASKS.filter(x=>x.id!==id); saveADM(); admCloseTask(); admRenderTasks(); toast("Demanda excluída");
+}
+/* ---- contratos ---- */
+function admRenderCKpis(){
+  const ativos=ADM_CTS.filter(c=>admCtStatus(c).k==="ativo").length;
+  const vencendo=ADM_CTS.filter(c=>admCtStatus(c).k==="vencendo").length;
+  const vencidos=ADM_CTS.filter(c=>admCtStatus(c).k==="vencido").length;
+  const mrr=ADM_CTS.filter(c=>admCtStatus(c).k!=="vencido").reduce((n,c)=>n+(Number(c.valor)||0),0);
+  $("#admCKpis").innerHTML=`
+    <div class="kpi accent"><div class="v">${money(mrr)}</div><div class="l">Receita mensal (ativos)</div></div>
+    <div class="kpi"><div class="v">${ativos}</div><div class="l">Contratos ativos</div></div>
+    <div class="kpi"><div class="v" style="color:${vencendo?'#b9832a':''}">${vencendo}</div><div class="l">Vencendo (30 dias)</div></div>
+    <div class="kpi"><div class="v" style="color:${vencidos?'#c0503f':''}">${vencidos}</div><div class="l">Vencidos</div></div>`;
+}
+function admRenderCts(){
+  admRenderCKpis();
+  const q=($("#admFBuscaC").value||"").toLowerCase().trim(), st=$("#admFStatusC").value;
+  let list=ADM_CTS.filter(c=>(!q||(c.cliente||"").toLowerCase().includes(q))&&(!st||admCtStatus(c).k===st));
+  list.sort((a,b)=>(a.fim||"9999").localeCompare(b.fim||"9999"));
+  if(!list.length){ $("#admCtBody").innerHTML='<div class="empty">Nenhum contrato encontrado.</div>'; return; }
+  let h='<table class="act-table"><thead><tr><th>Cliente</th><th>Tipo</th><th>Vigência</th><th>Valor/mês</th><th>Venc.</th><th>Status</th><th>Doc.</th></tr></thead><tbody>';
+  list.forEach(c=>{
+    const s=admCtStatus(c);
+    h+=`<tr onclick="admEditCt('${c.id}')">
+      <td style="font-weight:700">${esc(c.cliente)}</td>
+      <td>${esc(c.tipo||"—")}</td>
+      <td>${fmtDate(c.inicio)} → ${fmtDate(c.fim)}</td>
+      <td>${money(c.valor)}</td>
+      <td>${c.venc?"dia "+c.venc:"—"}</td>
+      <td><span class="pill ${s.k}">${s.l}</span></td>
+      <td>${c.link?`<a class="act-doc" href="${esc(c.link)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">📄 abrir</a>`:"—"}</td>
+    </tr>`;
+  });
+  $("#admCtBody").innerHTML=h+'</tbody></table>';
+}
+function admUpdateCLink(){
+  const v=$("#acLink").value.trim(), a=$("#acLinkOpen");
+  if(v){ a.href=v; a.style.display="inline-block"; } else { a.style.display="none"; }
+}
+function admOpenCt(){
+  $("#acTitle").textContent="Novo contrato";
+  ["acId","acCliente","acInicio","acFim","acValor","acVenc","acLink","acObs"].forEach(i=>$("#"+i).value="");
+  $("#acTipo").selectedIndex=0; admUpdateCLink(); $("#acDelBtn").style.display="none"; $("#acOverlay").classList.add("open");
+}
+function admEditCt(id){
+  const c=ADM_CTS.find(x=>x.id===id); if(!c)return;
+  $("#acTitle").textContent="Editar contrato";
+  $("#acId").value=c.id; $("#acCliente").value=c.cliente; $("#acTipo").value=c.tipo||"Prestação de serviços";
+  $("#acInicio").value=c.inicio||""; $("#acFim").value=c.fim||""; $("#acValor").value=c.valor||"";
+  $("#acVenc").value=c.venc||""; $("#acLink").value=c.link||""; $("#acObs").value=c.obs||"";
+  admUpdateCLink(); $("#acDelBtn").style.display="block"; $("#acOverlay").classList.add("open");
+}
+function admCloseCt(){ $("#acOverlay").classList.remove("open"); }
+function admSaveCt(){
+  const cliente=$("#acCliente").value.trim(); if(!cliente){ toast("Informe o cliente"); return; }
+  const data={cliente,tipo:$("#acTipo").value,inicio:$("#acInicio").value,fim:$("#acFim").value,valor:Number($("#acValor").value)||0,venc:$("#acVenc").value,link:$("#acLink").value.trim(),obs:$("#acObs").value.trim()};
+  const id=$("#acId").value;
+  if(id){ Object.assign(ADM_CTS.find(x=>x.id===id),data); toast("Contrato atualizado"); }
+  else{ ADM_CTS.push({id:"ac"+Date.now(),...data}); toast("Contrato criado ✔"); }
+  saveADM(); admCloseCt(); admRenderCts();
+}
+function admDeleteCt(){
+  const id=$("#acId").value; if(!id)return; if(!confirm("Excluir este contrato?"))return;
+  ADM_CTS=ADM_CTS.filter(x=>x.id!==id); saveADM(); admCloseCt(); admRenderCts(); toast("Contrato excluído");
+}
+
 /* ---------- POP-UP: PRIORIDADES DO DIA ---------- */
-const NICKS = {Isabela:"Bela", Leticia:"Lets", "Letícia":"Lets", Ana:"Papal"};
+const NICKS = {Isabela:"Bela", Leticia:"Lets", "Letícia":"Lets", Ana:"Papal", Murilo:"Mu"};
 const nick = n => NICKS[n] || n;
 const VERSICULOS = [
   {t:"Tudo posso naquele que me fortalece.", r:"Filipenses 4:13"},
@@ -1311,8 +1671,15 @@ function buildBrief(){
   const cvAtraso = cvMinhas.filter(o=>o.acaoData && o.acaoData<today()).sort((a,b)=>a.acaoData.localeCompare(b.acaoData));
   const cvHoje = cvMinhas.filter(o=>o.acaoData===today());
   const cvNeg = cvMinhas.filter(o=>o.etapa===ID_NEGOCIACAO);
+  // ADM: só entra se a pessoa é do ADM E destravou a aba nesta sessão
+  const admOn = ADM_TEAM.includes(me) && admUnlocked;
+  const admMinhas = admOn ? ADM_TASKS.filter(t=>t.resp===me && t.status!=='done') : [];
+  const admAtraso = admMinhas.filter(t=>t.prazo && t.prazo<today()).sort((a,b)=>a.prazo.localeCompare(b.prazo));
+  const admHoje = admMinhas.filter(t=>t.prazo===today());
+  const admWait = admMinhas.filter(t=>t.status==='waiting');
   const nada = !atrasadas.length && !hoje.length && !aprov.length && !evHoje.length && !tmHoje.length
-               && !cvAtraso.length && !cvHoje.length && !cvNeg.length;
+               && !cvAtraso.length && !cvHoje.length && !cvNeg.length
+               && !admAtraso.length && !admHoje.length && !admWait.length;
 
   const v = versiculoDoDia();
   let h = `<div class="br-hero">
@@ -1325,6 +1692,7 @@ function buildBrief(){
       ${aprov.length?`<span class="br-chip">⏳ ${aprov.length} em aprovação</span>`:''}
       ${(evHoje.length+tmHoje.length)?`<span class="br-chip">🗓️ ${evHoje.length+tmHoje.length} na agenda</span>`:''}
       ${cvOn&&(cvAtraso.length+cvHoje.length+cvNeg.length)?`<span class="br-chip">💼 ${cvAtraso.length+cvHoje.length+cvNeg.length} comercial</span>`:''}
+      ${admOn&&(admAtraso.length+admHoje.length+admWait.length)?`<span class="br-chip">🗄️ ${admAtraso.length+admHoje.length+admWait.length} ADM</span>`:''}
       ${nada?`<span class="br-chip green">✓ Dia tranquilo</span>`:''}
     </div>
   </div>
@@ -1369,6 +1737,18 @@ function buildBrief(){
       <div class="grow"><h5>${esc(o.empresa)}</h5><div class="sub">Em negociação · ${esc(o.acao||"Definir próximo passo")}</div></div>
       <span class="tag">${money(o.valor)}</span></div>`).join("");
   }
+  if(admOn && (admAtraso.length||admHoje.length||admWait.length)){
+    h += `<div class="br-sec">🗄️ ADM</div>`;
+    h += admAtraso.map(t=>`<div class="br-item late" onclick="closeBrief();go('adm');setTimeout(()=>{admSub('tasks');admEditTask('${t.id}')},250)">
+      <div class="grow"><h5>${esc(t.titulo)}</h5><div class="sub">${esc(t.categoria)}</div></div>
+      <span class="tag late">${fmtDate(t.prazo)}</span></div>`).join("");
+    h += admHoje.map(t=>`<div class="br-item today" onclick="closeBrief();go('adm');setTimeout(()=>{admSub('tasks');admEditTask('${t.id}')},250)">
+      <div class="grow"><h5>${esc(t.titulo)}</h5><div class="sub">${esc(t.categoria)}</div></div>
+      <span class="tag today">hoje</span></div>`).join("");
+    h += admWait.map(t=>`<div class="br-item appr" onclick="closeBrief();go('adm');setTimeout(()=>{admSub('tasks');admEditTask('${t.id}')},250)">
+      <div class="grow"><h5>${esc(t.titulo)}</h5><div class="sub">Aguardando retorno · ${esc(t.categoria)}</div></div>
+      <span class="tag">retomar</span></div>`).join("");
+  }
   if(nada){
     h += `<div class="br-empty">🎉 Nenhuma pendência para hoje, ${esc(nick(me))}!<br><span style="font-weight:400;font-size:13px">Aproveita para adiantar o que vem aí ou tomar aquele café merecido.</span></div>`;
   }
@@ -1386,6 +1766,10 @@ function go(v){
     if(!CRM_TEAM.includes(me)){ toast("Área restrita ao comercial"); return; }
     if(!crmUnlocked){ openPw(); return; }
   }
+  if(v==="adm"){
+    if(!ADM_TEAM.includes(me)){ toast("Área restrita ao ADM"); return; }
+    if(!admUnlocked){ admOpenPw(); return; }
+  }
   showView(v);
 }
 function showView(v){
@@ -1399,6 +1783,7 @@ function showView(v){
   if(v==="clientes"){currentClient=null;renderClientes();}
   if(v==="automacoes")renderAutos();
   if(v==="comercial")renderCV();
+  if(v==="adm")admRender();
 }
 
 /* ---------- INIT SELECTS ---------- */
@@ -1427,6 +1812,11 @@ function fillSelects(){
   $("#opResp").innerHTML = CRM_TEAM.map(t=>opt(t,nick(t))).join("");
   $("#opOrigem").innerHTML = ORIGENS.map(o=>opt(o,o)).join("");
   $("#opEtapa").innerHTML = CRM_STAGES.map(s=>opt(s.id,s.nome)).join("");
+  // ADM
+  $("#navAdm").style.display = ADM_TEAM.includes(me) ? "flex" : "none";
+  $("#atCat").innerHTML = ADM_CATS.map(c=>opt(c,c)).join("");
+  $("#atResp").innerHTML = ADM_TEAM.map(t=>opt(t,nick(t))).join("");
+  $("#admFCatT").innerHTML = '<option value="">Todas as categorias</option>'+ADM_CATS.map(c=>opt(c,c)).join("");
   $("#clMonth").value = today().slice(0,7);
 }
 function setMe(v){ me=v; localStorage.setItem(ME_KEY,v); fillSelects(); go("kanban"); maybeShowBrief(); }
@@ -2053,6 +2443,9 @@ $("#pwOverlay").addEventListener("click",e=>{ if(e.target.id==="pwOverlay")close
 $("#opOverlay").addEventListener("click",e=>{ if(e.target.id==="opOverlay")closeOp(); });
 $("#stOverlay").addEventListener("click",e=>{ if(e.target.id==="stOverlay")closeStages(); });
 $("#repOverlay").addEventListener("click",e=>{ if(e.target.id==="repOverlay")closeReport(); });
+$("#apwOverlay").addEventListener("click",e=>{ if(e.target.id==="apwOverlay")admClosePw(); });
+$("#atOverlay").addEventListener("click",e=>{ if(e.target.id==="atOverlay")admCloseTask(); });
+$("#acOverlay").addEventListener("click",e=>{ if(e.target.id==="acOverlay")admCloseCt(); });
 </script>
 </body>
 </html>

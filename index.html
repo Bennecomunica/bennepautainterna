@@ -278,7 +278,10 @@
   .subbar{height:7px;border-radius:6px;background:#e7ddcf;overflow:hidden;margin-bottom:11px}
   .subbar > i{display:block;height:100%;background:var(--done);width:0;transition:width .2s}
   .subgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px 16px}
-  .subgrid label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);cursor:pointer}
+  .subgrid label{display:flex;align-items:center;justify-content:flex-start;text-align:left;gap:9px;font-size:13px;color:var(--ink);cursor:pointer;padding:3px 4px;border-radius:6px}
+  .subgrid label:hover{background:#f0e7db}
+  .subgrid label input{flex:none;margin:0;width:15px;height:15px}
+  .subgrid label span{flex:1}
   .subgrid label.chk{color:var(--muted);text-decoration:line-through}
   .card .subprog{font-size:11px;font-weight:700;color:var(--done);margin-top:2px}
   .modal-foot{padding:16px 22px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end}
@@ -2229,18 +2232,20 @@ function updateLinkOpen(){
 function ajusteHint(){ const h=$("#dAjusteHint"); if(h) h.style.display=$("#dAjusteData").value?"block":"none"; }
 /* ----- Subdemandas por cliente (demanda "Todos os clientes") ----- */
 let subState={};
+const SUB_EXCLUDE=["comercial","deus presente"];
+function subClients(){ return CLIENTS.filter(c=>{ const d=normBusca(c.replace('Colégio ','')); return !(SUB_EXCLUDE.includes(d)||d.startsWith('isabela')); }); }
 function onCliChange(){
   const isAll = $("#dCli").value===ALL_CLIENTS, box=$("#subBox");
-  if(isAll){ CLIENTS.forEach(c=>{ if(!(c in subState)) subState[c]=false; }); box.style.display="block"; renderSubs(); }
+  if(isAll){ subClients().forEach(c=>{ if(!(c in subState)) subState[c]=false; }); box.style.display="block"; renderSubs(); }
   else { box.style.display="none"; }
 }
 function renderSubs(){
-  $("#subGrid").innerHTML = CLIENTS.map(c=>`<label class="${subState[c]?'chk':''}"><input type="checkbox" class="subck" value="${esc(c)}" ${subState[c]?'checked':''} onchange="toggleSub(this)"> ${esc(c.replace('Colégio ',''))}</label>`).join("");
+  $("#subGrid").innerHTML = subClients().map(c=>`<label class="${subState[c]?'chk':''}"><input type="checkbox" class="subck" value="${esc(c)}" ${subState[c]?'checked':''} onchange="toggleSub(this)"><span>${esc(c.replace('Colégio ',''))}</span></label>`).join("");
   updateSubProgress();
 }
 function toggleSub(cb){ subState[cb.value]=cb.checked; cb.parentNode.classList.toggle('chk',cb.checked); updateSubProgress(); }
 function updateSubProgress(){
-  const total=CLIENTS.length, done=CLIENTS.filter(c=>subState[c]).length;
+  const cl=subClients(), total=cl.length, done=cl.filter(c=>subState[c]).length;
   $("#subCnt").textContent=done+"/"+total;
   $("#subBar").style.width = total?(done/total*100)+"%":"0";
 }
@@ -2293,8 +2298,8 @@ function saveDemand(){
   const data={titulo, desc:$("#dDesc").value.trim(), cliente:$("#dCli").value, categoria:$("#dCat").value,
     responsavel:$("#dResp").value, prazo:$("#dPrazo").value, status:$("#dStatus").value, link:$("#dLink").value.trim(), justificativa:just, ajuste, ajusteData};
   if(data.cliente===ALL_CLIENTS){
-    const subs={}; CLIENTS.forEach(c=>subs[c]=!!subState[c]);
-    const total=CLIENTS.length, done=CLIENTS.filter(c=>subs[c]).length;
+    const cl=subClients(); const subs={}; cl.forEach(c=>subs[c]=!!subState[c]);
+    const total=cl.length, done=cl.filter(c=>subs[c]).length;
     data.subs=subs;
     if(total>0 && done===total) data.status='done';
     else if(data.status==='done') data.status='doing';

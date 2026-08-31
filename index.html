@@ -272,6 +272,15 @@
   .modal-body input,.modal-body select,.modal-body textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:#fbf8f4}
   .modal-body textarea{min-height:70px;resize:vertical}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .subwrap{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:2px 0 4px;background:#faf6f0}
+  .subwrap .sub-head{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:12px;color:var(--brown-dark);margin-bottom:8px;text-transform:uppercase;letter-spacing:.3px}
+  .subwrap .sub-head .cnt{color:var(--terra)}
+  .subbar{height:7px;border-radius:6px;background:#e7ddcf;overflow:hidden;margin-bottom:11px}
+  .subbar > i{display:block;height:100%;background:var(--done);width:0;transition:width .2s}
+  .subgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px 16px}
+  .subgrid label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);cursor:pointer}
+  .subgrid label.chk{color:var(--muted);text-decoration:line-through}
+  .card .subprog{font-size:11px;font-weight:700;color:var(--done);margin-top:2px}
   .modal-foot{padding:16px 22px;border-top:1px solid var(--line);display:flex;gap:10px;justify-content:flex-end}
   .btn-x{background:none;font-size:22px;color:var(--muted);line-height:1}
   .btn-del{background:none;color:#c0503f;font-weight:700;margin-right:auto}
@@ -621,8 +630,14 @@
       <label>Descrição</label>
       <textarea id="dDesc" placeholder="Detalhes, referências, observações..."></textarea>
       <div class="row2">
-        <div><label>Cliente</label><select id="dCli"></select></div>
+        <div><label>Cliente</label><select id="dCli" onchange="onCliChange()"></select></div>
         <div><label>Categoria</label><select id="dCat"></select></div>
+      </div>
+      <div class="subwrap" id="subBox" style="display:none">
+        <div class="sub-head"><span>🌐 Subdemandas por cliente</span><span class="cnt" id="subCnt">0/0</span></div>
+        <div class="subbar"><i id="subBar"></i></div>
+        <div class="subgrid" id="subGrid"></div>
+        <div style="font-size:11px;color:var(--muted);margin-top:9px">Marque cada cliente conforme concluir. Ao marcar todos, a demanda é finalizada automaticamente.</div>
       </div>
       <div class="row2">
         <div><label>Responsável</label><select id="dResp"></select></div>
@@ -1042,6 +1057,7 @@ const TEAM = ["Isabela","Ana","Leticia","Murilo"];
 const ROLES = {Isabela:"Operacional",Ana:"Filmaker / Planner / Atendimento",Leticia:"Design / Extras / Social Media"};
 const CATEGORIES = ["Planejamento","Design","Captação de vídeos","Edição de vídeos","Revisão","Entrega","Social Media","Extras"];
 const STATUS = {todo:"Para fazer",doing:"Fazendo",approval:"Em aprovação",ajuste:"Em ajustes",done:"Finalizado"};
+const ALL_CLIENTS = "Todos os clientes";
 const STORE_KEY = "benne_demandas_v1";
 const ME_KEY = "benne_me";
 
@@ -1848,7 +1864,7 @@ function showView(v){
 /* ---------- INIT SELECTS ---------- */
 function fillSelects(){
   $("#me").innerHTML = TEAM.map(t=>opt(t,t,me)).join("");
-  $("#dCli").innerHTML = CLIENTS.map(c=>opt(c,c)).join("");
+  $("#dCli").innerHTML = '<option value="'+ALL_CLIENTS+'">🌐 Todos os clientes</option>'+CLIENTS.map(c=>opt(c,c)).join("");
   $("#dCat").innerHTML = CATEGORIES.map(c=>opt(c,c)).join("");
   $("#dResp").innerHTML = TEAM.map(t=>opt(t,t)).join("");
   $("#fPautaCli").innerHTML = '<option value="">Todos os clientes</option>'+CLIENTS.map(c=>opt(c,c)).join("");
@@ -1953,7 +1969,7 @@ function renderPautaMes(){
         const dayISO=iso(dt);
         const items=monthDemands.filter(d=>d.responsavel===mem && d.prazo===dayISO);
         const evs=monthEv.filter(ev=>ev.pessoa===mem && ev.data===dayISO);
-        const demHTML=items.map(d=>{const late=d.prazo<today()&&(d.status==='todo'||d.status==='doing');return `<span class="cal-chip s-${d.status}${late?' overdue':''}" draggable="true" ondragstart="calDragStart(event,'${d.id}')" ondragend="calDragEnd(event)" onclick="editDemand('${d.id}')"${late?' title="Prazo vencido"':''}><b>${esc(d.cliente.replace('Colégio ',''))}</b>${esc(d.titulo)}</span>`;}).join("");
+        const demHTML=items.map(d=>{const late=d.prazo<today()&&(d.status==='todo'||d.status==='doing');const si=subInfo(d);const lbl=d.cliente===ALL_CLIENTS?('🌐 Todos'+(si?' '+si.done+'/'+si.total:'')):esc(d.cliente.replace('Colégio ',''));return `<span class="cal-chip s-${d.status}${late?' overdue':''}" draggable="true" ondragstart="calDragStart(event,'${d.id}')" ondragend="calDragEnd(event)" onclick="editDemand('${d.id}')"${late?' title="Prazo vencido"':''}><b>${lbl}</b>${esc(d.titulo)}</span>`;}).join("");
         const evHTML=evs.map(ev=>`<span class="cal-ev" onclick="editP('${ev.id}')" title="Compromisso pessoal"><span class="tag">🗓️ Pessoal</span> ${ev.hora?'<b>'+esc(ev.hora)+'</b> ':''}${esc(ev.titulo)}</span>`).join("");
         const tms=monthTeam.filter(tv=>tv.data===dayISO && (tv.pessoas||[]).includes(mem));
         const tmHTML=tms.map(tv=>`<span class="cal-tm" onclick="editT('${tv.id}')" title="Evento com o time"><span class="tag">👥 Time</span> ${tv.hora?'<b>'+esc(tv.hora)+'</b> ':''}${esc(tv.titulo)}</span>`).join("");
@@ -2033,8 +2049,9 @@ function cardHTML(d){
   const dc=dueClass(d.prazo,d.status);
   return `<div class="card k-${d.status}" draggable="true" data-id="${d.id}"
     ondragstart="dragStart(event)" ondragend="dragEnd(event)" onclick="editDemand('${d.id}')">
-    <div class="cli">${esc(d.cliente)}</div>
+    <div class="cli">${d.cliente===ALL_CLIENTS?'🌐 ':''}${esc(d.cliente)}</div>
     <h4>${esc(d.titulo)}</h4>
+    ${(()=>{const s=subInfo(d);return s?`<div class="subprog">✓ ${s.done}/${s.total} clientes concluídos</div>`:'';})()}
     <div class="meta">
       <span class="avatar" title="${esc(d.responsavel)}">${initials(d.responsavel)}</span>
       <span style="display:flex;align-items:center;gap:8px">
@@ -2186,6 +2203,7 @@ function openModal(preCli){
   $("#dLink").value=""; updateLinkOpen();
   $("#dJust").value="";
   $("#dAjuste").value=""; $("#dAjusteData").value=""; ajusteHint();
+  subState={}; onCliChange();
   $("#delBtn").style.display="none";
   $("#histBox").innerHTML="";
   $("#overlay").classList.add("open");
@@ -2199,6 +2217,7 @@ function editDemand(id){
   $("#dLink").value=d.link||""; updateLinkOpen();
   $("#dJust").value=d.justificativa||"";
   $("#dAjuste").value=d.ajuste||""; $("#dAjusteData").value=d.ajusteData||""; ajusteHint();
+  subState=Object.assign({}, d.subs||{}); onCliChange();
   $("#delBtn").style.display="block";
   renderHist(d);
   $("#overlay").classList.add("open");
@@ -2208,6 +2227,24 @@ function updateLinkOpen(){
   if(v){ a.href=v; a.style.display="inline-block"; } else { a.style.display="none"; }
 }
 function ajusteHint(){ const h=$("#dAjusteHint"); if(h) h.style.display=$("#dAjusteData").value?"block":"none"; }
+/* ----- Subdemandas por cliente (demanda "Todos os clientes") ----- */
+let subState={};
+function onCliChange(){
+  const isAll = $("#dCli").value===ALL_CLIENTS, box=$("#subBox");
+  if(isAll){ CLIENTS.forEach(c=>{ if(!(c in subState)) subState[c]=false; }); box.style.display="block"; renderSubs(); }
+  else { box.style.display="none"; }
+}
+function renderSubs(){
+  $("#subGrid").innerHTML = CLIENTS.map(c=>`<label class="${subState[c]?'chk':''}"><input type="checkbox" class="subck" value="${esc(c)}" ${subState[c]?'checked':''} onchange="toggleSub(this)"> ${esc(c.replace('Colégio ',''))}</label>`).join("");
+  updateSubProgress();
+}
+function toggleSub(cb){ subState[cb.value]=cb.checked; cb.parentNode.classList.toggle('chk',cb.checked); updateSubProgress(); }
+function updateSubProgress(){
+  const total=CLIENTS.length, done=CLIENTS.filter(c=>subState[c]).length;
+  $("#subCnt").textContent=done+"/"+total;
+  $("#subBar").style.width = total?(done/total*100)+"%":"0";
+}
+function subInfo(d){ if(!d||d.cliente!==ALL_CLIENTS||!d.subs) return null; const ks=Object.keys(d.subs); const done=ks.filter(k=>d.subs[k]).length; return {done, total:ks.length}; }
 function renderHist(d){
   const box=$("#histBox");
   const h=(d.hist||[]).slice().sort((a,b)=>b.t-a.t);
@@ -2255,6 +2292,13 @@ function saveDemand(){
   const ajusteData=$("#dAjusteData").value;
   const data={titulo, desc:$("#dDesc").value.trim(), cliente:$("#dCli").value, categoria:$("#dCat").value,
     responsavel:$("#dResp").value, prazo:$("#dPrazo").value, status:$("#dStatus").value, link:$("#dLink").value.trim(), justificativa:just, ajuste, ajusteData};
+  if(data.cliente===ALL_CLIENTS){
+    const subs={}; CLIENTS.forEach(c=>subs[c]=!!subState[c]);
+    const total=CLIENTS.length, done=CLIENTS.filter(c=>subs[c]).length;
+    data.subs=subs;
+    if(total>0 && done===total) data.status='done';
+    else if(data.status==='done') data.status='doing';
+  } else { data.subs=null; }
   // "Entrega dos ajustes" reprograma o prazo da demanda na pauta
   if(ajusteData){ data.prazo = ajusteData; $("#dPrazo").value = ajusteData; }
   if(id){

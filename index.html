@@ -504,6 +504,7 @@
         <option value="todo">Para fazer</option><option value="doing">Fazendo</option>
         <option value="approval">Em aprovação</option><option value="ajuste">Em ajustes</option><option value="done">Finalizado</option>
       </select>
+      <input id="fPautaBusca" type="search" placeholder="🔍 Buscar demanda..." oninput="renderPauta()" style="min-width:200px">
     </div>
     <div id="pautaBody"></div>
   </section>
@@ -517,6 +518,7 @@
     <div class="filters">
       <select id="fKanResp" onchange="renderKanban()"></select>
       <select id="fKanCli" onchange="renderKanban()"><option value="">Todos os clientes</option></select>
+      <input id="fKanBusca" type="search" placeholder="🔍 Buscar demanda..." oninput="renderKanban()" style="min-width:200px">
     </div>
     <div class="board" id="board"></div>
   </section>
@@ -1889,9 +1891,13 @@ function shiftMonth(n){
   if(mo<1){mo=12;y--;} if(mo>12){mo=1;y++;}
   pautaYM=y+"-"+String(mo).padStart(2,"0"); renderPauta();
 }
+function normBusca(s){ return (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase(); }
+function demandaMatch(d,q){ if(!q)return true; q=normBusca(q).trim(); if(!q)return true;
+  const alvo=normBusca([d.titulo,d.cliente,d.categoria,d.responsavel,d.desc].join(" "));
+  return q.split(/\s+/).every(w=>alvo.includes(w)); }
 function pautaFilter(d){
-  const cli=$("#fPautaCli").value, resp=$("#fPautaResp").value, st=$("#fPautaStatus").value;
-  return (!cli||d.cliente===cli)&&(!resp||d.responsavel===resp)&&(!st||d.status===st);
+  const cli=$("#fPautaCli").value, resp=$("#fPautaResp").value, st=$("#fPautaStatus").value, q=$("#fPautaBusca")?$("#fPautaBusca").value:"";
+  return (!cli||d.cliente===cli)&&(!resp||d.responsavel===resp)&&(!st||d.status===st)&&demandaMatch(d,q);
 }
 function renderPauta(){
   $("#calNav").style.display = pautaMode==="mes" ? "flex" : "none";
@@ -2009,10 +2015,10 @@ function calDrop(e,mem,day){
 
 /* ---------- KANBAN ---------- */
 function renderKanban(){
-  const resp=$("#fKanResp").value, cli=$("#fKanCli").value;
+  const resp=$("#fKanResp").value, cli=$("#fKanCli").value, q=$("#fKanBusca")?$("#fKanBusca").value:"";
   let list=DB.filter(d=>{
     const rOk = resp==="" ? true : resp==="__me" ? d.responsavel===me : d.responsavel===resp;
-    return rOk && (!cli||d.cliente===cli);
+    return rOk && (!cli||d.cliente===cli) && demandaMatch(d,q);
   });
   const cols=[["todo","Para fazer"],["doing","Fazendo"],["approval","Em aprovação"],["ajuste","Em ajustes"],["done","Finalizado"]];
   $("#board").innerHTML=cols.map(([k,label])=>{
